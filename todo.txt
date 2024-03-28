@@ -8,12 +8,15 @@ login.html:
     add forget password option:
     document:
 dating.html:
-    create a input interface:
-    create scrolling interface:
+    create a input interface: done
     modify entry if it already exist:
     add styling:
     add option to give preference to matching:
     filter option:
+    document:
+scroll_or_swipe.html:
+    create a scroll or swipe interface:done
+    add styling:
     document:
 match.html:
     create a formula for matching
