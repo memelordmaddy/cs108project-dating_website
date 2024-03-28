@@ -1,0 +1,75 @@
+<!--
+    Login Page:- To access the input interface, there can be a login screen before that, which will require you to enter username and password of some sort.
+    If you are “registered” and you fill correct entries, then you login. 
+    If you aren’t “registered”, you can click on a button like “Sign Up”/“Register a New Account” to fill up a new username and a new password, which gets saved in another .json file (call it login.json). 
+    So, any existing/registered user must have their username and password in login.json. Hence any registered user can access this website (on the same machine) at a much later time in future.
+    You can write the code for the login page in a .html file named login.html.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="submit" value="Login"> <br><br>
+        <a href="register.html">Register a New Account</a>
+        <div id="debugging"></div>
+    </form>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            // document.getElementById("debugging").innerHTML= username + password;
+            fetch('login.json')
+                .then(response => response.json())
+                .then(data => {
+                    var isValidUser = false; 
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].username == username && data[i].password == password) {
+                            isValidUser = true;
+                            break;
+                        }
+                    }
+                    if (isValidUser) {
+                        window.location.replace("dating.html");
+                        console.log("Valid username");
+                    } else {
+                            console.log("Invalid username or password");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        
+        /*
+        return fetch('login.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('JSON file fetched successfully:', data);
+            // You can perform further operations with the fetched data here
+            return data;
+        })
+        .catch(error => {
+            console.error('There was a problem fetching the JSON file:', error);
+        });
+        */
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+[
+    {
+        "username": "23b1060",
+        "password": "123456",
+        "hint": "1 to 6"
+    },
+    {
+        "username": "23b1050",
+        "password": "654321",
+        "hint": "6 to 1"
+    }
+]
