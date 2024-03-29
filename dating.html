@@ -39,15 +39,108 @@ Do this work in files named “dating.html” and “style.css”. You can assum
             <label for="other">Other</label><br><br>
             
             <label for="interests">Interests:</label>
-            <input type="checkbox" id="travel" name="interests" value="travel">
-            <label for="travel">Traveling</label>
-            <input type="checkbox" id="sports" name="interests" value="sports">
-            <label for="sports">Sports</label>
-            <input type="checkbox" id="movies" name="interests" value="movies">
-            <label for="movies">Movies</label><br><br>
+            <div id="interestsContainer"></div><br><br>
+            <script>
+                fetch('student.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const interestsContainer = document.getElementById('interestsContainer');
+                        const interestsSet = new Set();
+
+                        data.forEach(student => {
+                            student.Interests.forEach(interest => {
+                                interestsSet.add(interest);
+                            });
+                        });
+
+                        interestsSet.forEach(interest => {
+                            const interestContainer = document.createElement('div');
+
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = 'interests';
+                            checkbox.value = interest;
+
+                            const label = document.createElement('label');
+                            label.htmlFor = interest;
+                            label.textContent = interest;
+
+                            const valueLabel = document.createElement('label');
+                            valueLabel.htmlFor = `value-${interest}`;
+                            valueLabel.textContent = 'Value:';
+
+                            const valueInput = document.createElement('input');
+                            valueInput.type = 'number';
+                            valueInput.id = `value-${interest}`;
+                            valueInput.name = `value-${interest}`;
+                            valueInput.min = '1';
+                            valueInput.max = '5';
+                            valueInput.required = true;
+
+                            interestContainer.appendChild(checkbox);
+                            interestContainer.appendChild(label);
+                            interestContainer.appendChild(valueLabel);
+                            interestContainer.appendChild(valueInput);
+                            interestContainer.appendChild(document.createElement('br'));
+
+                            interestsContainer.appendChild(interestContainer);
+                        });
+                            
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            </script>
             
             <label for="hobbies">Hobbies:</label>
-            <input type="checkbox" id="swimming" name="hobbies" value="swimming">
+            <div id="hobbiesContainer"></div><br><br>
+            <script>
+                fetch('student.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const hobbiesContainer = document.getElementById('hobbiesContainer');
+                        const hobbiesSet = new Set();
+
+                        data.forEach(student => {
+                            student.Hobbies.forEach(hobby => {
+                                hobbiesSet.add(hobby);
+                            });
+                        });
+
+                        hobbiesSet.forEach(hobby => {
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = 'hobbies';
+                            checkbox.value = hobby;
+
+                            const label = document.createElement('label');
+                            label.htmlFor = hobby;
+                            label.textContent = hobby;
+
+                            const valueLabel = document.createElement('label');
+                            valueLabel.htmlFor = `value-${hobby}`;
+                            valueLabel.textContent = 'Value:';
+
+                            const valueInput = document.createElement('input');
+                            valueInput.type = 'number';
+                            valueInput.id = `value-${hobby}`;
+                            valueInput.name = `value-${hobby}`;
+                            valueInput.min = '1';
+                            valueInput.max = '5';
+                            valueInput.required = true;
+
+                            hobbiesContainer.appendChild(checkbox);
+                            hobbiesContainer.appendChild(label);
+                            hobbiesContainer.appendChild(valueLabel);
+                            hobbiesContainer.appendChild(valueInput);
+                            hobbiesContainer.appendChild(document.createElement('br'));
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            </script>
+
             <label for="swimming">Swimming</label>
             <input type="checkbox" id="football" name="hobbies" value="football">
             <label for="football">Football</label>
