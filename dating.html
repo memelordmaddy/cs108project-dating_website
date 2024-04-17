@@ -16,6 +16,7 @@ Do this work in files named “dating.html” and “style.css”. You can assum
         <title>Dating</title>
     </head>
     <body>
+        <div class="container">
         <h1>Personal Details</h1>
         <form id="personalDetailsForm">
             <label for="rollNumber">IITB Roll Number:</label>
@@ -30,6 +31,7 @@ Do this work in files named “dating.html” and “style.css”. You can assum
             <label for="age">Age:</label>
             <input type="number" id="age" name="age" required><br><br>
 
+            <div class="gender-container">
             <label for="gender">Gender:</label>
             <input type="radio" id="male" name="gender" value="male" required>
             <label for="male">Male</label>
@@ -37,126 +39,156 @@ Do this work in files named “dating.html” and “style.css”. You can assum
             <label for="female">Female</label>
             <input type="radio" id="other" name="gender" value="other" required>
             <label for="other">Other</label><br><br>
-            
-            <label for="interests">Interests:</label>
-            <div id="interestsContainer"></div><br><br>
-            <script>
-                fetch('student.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        const interestsContainer = document.getElementById('interestsContainer');
-                        const interestsSet = new Set();
+            </div>
+            <div class="checkbox-container">
+            <label for="interests">Interests:</label><br>
+            <input type="checkbox" id="interest1" name="interests" value="Travelling">
+            <label for="interest1">Travelling</label><br>
+            <input type="checkbox" id="interest2" name="interests" value="Sports">
+            <label for="interest2">Sports</label><br>
+            <input type="checkbox" id="interest3" name="interests" value="Movies">
+            <label for="interest3">Movies</label><br>
+            <input type="checkbox" id="interest4" name="interests" value="Music">
+            <label for="interest4">Music</label><br>
+            <input type="checkbox" id="interest5" name="interests" value="Literature">
+            <label for="interest5">Literature</label><br>
+            <input type="checkbox" id="interest6" name="interests" value="Technology">
+            <label for="interest6">Technology</label><br>
+            <input type="checkbox" id="interest7" name="interests" value="Fashion">
+            <label for="interest7">Fashion</label><br>
+            <input type="checkbox" id="interest8" name="interests" value="Art">
+            <label for="interest8">Art</label><br><br>
+            </div>
+            <div class="checkbox-container">
+            <label for="hobbies">Hobbies:</label><br>
+            <input type="checkbox" id="hobby1" name="hobbies" value="Reading">
+            <label for="hobby1">Reading</label><br>
+            <input type="checkbox" id="hobby2" name="hobbies" value="Cooking">
+            <label for="hobby2">Cooking</label><br>
+            <input type="checkbox" id="hobby3" name="hobbies" value="Coding">
+            <label for="hobby3">Coding</label><br>
+            <input type="checkbox" id="hobby4" name="hobbies" value="Gardening">
+            <label for="hobby4">Gardening</label><br>
+            <input type="checkbox" id="hobby5" name="hobbies" value="Painting">
+            <label for="hobby5">Painting</label><br>
+            <input type="checkbox" id="hobby6" name="hobbies" value="Watching YouTube/Instagram">
+            <label for="hobby6">Watching YouTube/Instagram</label><br>
+            <input type="checkbox" id="hobby7" name="hobbies" value="Playing musical instruments">
+            <label for="hobby7">Playing musical instruments</label><br>
+            <input type="checkbox" id="hobby8" name="hobbies" value="Photography">
+            <label for="hobby8">Photography</label><br><br>
+            </div>
 
-                        data.forEach(student => {
-                            student.Interests.forEach(interest => {
-                                interestsSet.add(interest);
-                            });
-                        });
-
-                        interestsSet.forEach(interest => {
-                            const interestContainer = document.createElement('div');
-
-                            const checkbox = document.createElement('input');
-                            checkbox.type = 'checkbox';
-                            checkbox.name = 'interests';
-                            checkbox.value = interest;
-
-                            const label = document.createElement('label');
-                            label.htmlFor = interest;
-                            label.textContent = interest;
-
-                            const valueLabel = document.createElement('label');
-                            valueLabel.htmlFor = `value-${interest}`;
-                            valueLabel.textContent = 'Value:';
-
-                            const valueInput = document.createElement('input');
-                            valueInput.type = 'number';
-                            valueInput.id = `value-${interest}`;
-                            valueInput.name = `value-${interest}`;
-                            valueInput.min = '1';
-                            valueInput.max = '5';
-                            valueInput.required = true;
-
-                            interestContainer.appendChild(checkbox);
-                            interestContainer.appendChild(label);
-                            interestContainer.appendChild(valueLabel);
-                            interestContainer.appendChild(valueInput);
-                            interestContainer.appendChild(document.createElement('br'));
-
-                            interestsContainer.appendChild(interestContainer);
-                        });
-                            
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            </script>
-            
-            <label for="hobbies">Hobbies:</label>
-            <div id="hobbiesContainer"></div><br><br>
-            <script>
-                fetch('student.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        const hobbiesContainer = document.getElementById('hobbiesContainer');
-                        const hobbiesSet = new Set();
-
-                        data.forEach(student => {
-                            student.Hobbies.forEach(hobby => {
-                                hobbiesSet.add(hobby);
-                            });
-                        });
-
-                        hobbiesSet.forEach(hobby => {
-                            const checkbox = document.createElement('input');
-                            checkbox.type = 'checkbox';
-                            checkbox.name = 'hobbies';
-                            checkbox.value = hobby;
-
-                            const label = document.createElement('label');
-                            label.htmlFor = hobby;
-                            label.textContent = hobby;
-
-                            const valueLabel = document.createElement('label');
-                            valueLabel.htmlFor = `value-${hobby}`;
-                            valueLabel.textContent = 'Value:';
-
-                            const valueInput = document.createElement('input');
-                            valueInput.type = 'number';
-                            valueInput.id = `value-${hobby}`;
-                            valueInput.name = `value-${hobby}`;
-                            valueInput.min = '1';
-                            valueInput.max = '5';
-                            valueInput.required = true;
-
-                            hobbiesContainer.appendChild(checkbox);
-                            hobbiesContainer.appendChild(label);
-                            hobbiesContainer.appendChild(valueLabel);
-                            hobbiesContainer.appendChild(valueInput);
-                            hobbiesContainer.appendChild(document.createElement('br'));
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            </script>
-
-            <label for="swimming">Swimming</label>
-            <input type="checkbox" id="football" name="hobbies" value="football">
-            <label for="football">Football</label>
-            <input type="checkbox" id="wallClimbing" name="hobbies" value="wallClimbing">
-            <label for="wallClimbing">Wall Climbing</label>
-            <input type="checkbox" id="reading" name="hobbies" value="reading">
-            <label for="reading">Reading</label><br><br>
-            
             <label for="photo">Photo:</label>
             <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
 
-            <input type="submit" value="Submit" onclick="inputDataHandling()">
+            <input type="submit" value="Submit" onclick="findMatch()">
         </form>
+        <div id="debugging"></div>
+        <script src="dating.js" ></script>
         <a href="scroll_or_swipe.html">Go to Scroll or Swipe</a>
+        <a href="login.html">Logout</a>
+        </div>
+        <style>
+            body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fc46aa;
+}
 
-        <script src="script.js"></script>
-    </body>
-            
+.container {
+    max-width: 800px;
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px;
+    background-color: #39ceff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: calc(100% - 12px); /* Adjust for input padding */
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+a {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #333333;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* CSS for checkboxes */
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+.checkbox-container input[type="checkbox"] {
+    display: inline-block;
+    margin-right: 5px; /* Adjust as needed */
+}
+
+.checkbox-container label {
+    display: inline-block;
+    margin-right: 15px; /* Adjust as needed */
+    margin-bottom: 5px;
+}
+.gender-container input[type="radio"],
+.gender-container label {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+
+
+        </style>
+    </body> 
     </html>

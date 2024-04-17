@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forgot Password</title>
+    <script>
+        function checkLogin() {
+            // Get the username entered by the user
+            var username = document.getElementById("username").value;
+
+            // Load the login data from login.json
+            fetch("login.json")
+                .then(response => response.json())
+                .then(data => {
+                    // Check if the username exists
+                    var isValidUser = false; 
+                    var i=0;
+                 for (; i < data.length; i++) {
+                //document.getElementById("debugging").innerHTML= data[i].username + data[i].password;
+                    if (data[i].username == username) {
+                    isValidUser = true;
+                    break;
+                }
+                }
+                    if (isValidUser) {
+                        // Get the secret question and answer for the username
+                        //document.getElementById("debugging").innerHTML = data[i].secret_question;
+                        let secretQuestion = data[i].secret_question;
+                        let correctAnswer = data[i].secret_answer;
+
+                        // Ask the secret question
+                        var userAnswer = prompt(secretQuestion);
+
+                        // Check if the answer matches
+                        if (userAnswer === correctAnswer) {
+                            // Display the password
+                            var password = data[i].password;
+                            alert("Your password is: " + password);
+                        } else {
+                            alert("Incorrect answer. Please try again.");
+                        }
+                    } else {
+                        alert("Username not found. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error loading login data:", error);
+                });
+        }
+    </script>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #fc46aa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #55dcfa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Forgot Password</h1>
+        <label for="username">Username:</label>
+        <input type="text" id="username" class="input-field">
+        <div id="debugging"></div>
+        <button onclick="checkLogin()" class="submit-button">Submit</button>
+        <a href="login.html" class="back-link">Back to Login</a>
+    </div>
+</body>
+</html>

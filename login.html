@@ -10,21 +10,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Login</title>
 </head>
 <body>
-    <h1>Login</h1>
-    <form id="loginForm">
+    <div class="login-container">
+    
+    <form id="loginForm" class="login-form">
+        <h1>Login</h1>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
         <input type="submit" value="Login" onclick="validateForm()"> <br><br>
-        <a href="register.html">Register a New Account</a>
-        <div id="debugging"></div>
+        <div class="forgot-password">
+        <a href="forgot.html">Forgot Password</a>
+        </div>
     </form>
-
-    <script src="login.js"></script>
+    </div>
+    
+    <script >
+    function validateForm() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    //document.getElementById("debugging").innerHTML= username + password;
+    fetch('login.json')
+        .then(response => response.json())
+        .then(data => {
+            var isValidUser = false; 
+            for (var i = 0; i < data.length; i++) {
+                //document.getElementById("debugging").innerHTML= data[i].username + data[i].password;
+                if (data[i].username == username && data[i].password == password) {
+                    isValidUser = true;
+                    break;
+                }
+            }
+            if (isValidUser) {
+                window.location.replace("dating.html");
+                console.log("Valid username");
+            } else {
+                    console.log("Invalid username or password");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    </script>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fc46aa;
+}
+.login-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center;
+        height: 100vh;
+    }
+.login-form {
+    width: 300px;
+    padding: 20px;
+    background-color: #11dbff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333;
+}
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+.login-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+}
+.login-form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+.forgot-password {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .forgot-password a {
+        color: #6406d7;
+        text-decoration: none;
+    }
+    .forgot-password a:hover {
+        text-decoration: underline;
+    }
+    </style>
 </body>
 </html>

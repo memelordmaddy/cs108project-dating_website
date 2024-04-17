@@ -2,3 +2,86 @@
     When the person clicks “Submit”, a new tab will appear showing the “right match” for that person along with their details (if you succeed in finding the “right match” for that person). 
     The structure for this interface will be done in a separate .html file named “match.html”, but the same CSS and Javascript files will be used, i.e. style.css and script.js
 -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #fc46aa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        #match {
+            display: flex;
+            max-width: 600px;
+            background-color: #55dcfa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .match-details {
+            flex: 1;
+            padding-right: 20px;
+        }
+        
+        .match-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .match-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>        
+    </head>
+    <body>
+        <div id="match">
+            <!-- Match details will be dynamically added here -->
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+    // Get the index parameter from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const index = parseInt(urlParams.get('index'));
+
+    // Call foundMatch() with the index
+            foundMatch(index);
+            });
+            function foundMatch(index) {
+            //const urlParams = new URLSearchParams(window.location.search);
+            //const index = parseInt(urlParams.get('index'));
+            fetch('student.json')
+            .then(response => response.json())
+            .then(data => {
+            const studentDiv = document.createElement('div');
+            studentDiv.innerHTML = `
+                <h3>${data[index].Name}</h3>
+                <p>Age: ${data[index].Age}</p>
+                <p>Gender: ${data[index].Gender}</p>
+                <p>Interests: ${data[index].Interests.join(', ')}</p>
+                <p>Hobbies: ${data[index].Hobbies.join(', ')}</p>
+                <img src="${data[index].Photo}" alt="Student Photo" style="width: 25%; height: auto;"> <br><br>
+            `;
+            // Append the created div to appropriate DOM element
+            document.getElementById('match').appendChild(studentDiv);
+        });
+}
+        </script>
+    </body>
+</html>
