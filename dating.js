@@ -53,6 +53,4 @@ function findMatch(){
         console.error('Error:', error);
      });
         
-        // Do something with the interests array
-        // document.getElementById('debugging').innerHTML = interests.join(', ');
 }

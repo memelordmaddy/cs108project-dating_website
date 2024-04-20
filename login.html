@@ -13,10 +13,11 @@
     <title>Login</title>
 </head>
 <body>
+
     <div class="login-container">
     
     <form id="loginForm" class="login-form">
-        <h1>Login</h1>
+        <h2>Login to find your perfect match!</h2>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         <label for="password">Password:</label>
@@ -61,54 +62,63 @@
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #fc46aa;
+    background-color: #170063;
+    background-image: url("lalaland.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
 }
 .login-container {
         display: flex;
         justify-content: center; /* Center horizontally */
         align-items: center;
         height: 100vh;
+        
     }
 .login-form {
+    border: 2px solid #fdff03;
     width: 300px;
     padding: 20px;
-    background-color: #11dbff;
+    background-color: #3a1c9c;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     align-items: center;
+    color: #fdff03;
 }
 .login-form h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333333;
+    color: #fdff03;
 }
 .login-form input[type="text"],
 .login-form input[type="password"] {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #cccccc;
+    border: 1px solid #3a1c9c;
+    background-color: #ffff5a;
     border-radius: 5px;
 }
 .login-form input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #4caf50;
+    background-color: #fdff03;
     border: none;
     border-radius: 5px;
-    color: #ffffff;
+    color: #3a1c9c;
     font-size: 16px;
     cursor: pointer;
 }
 .login-form input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #fdff03;
 }
 .forgot-password {
         text-align: center;
         margin-top: 10px;
     }
     .forgot-password a {
-        color: #6406d7;
+        color: #fdff03;
         text-decoration: none;
     }
     .forgot-password a:hover {

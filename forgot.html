@@ -6,14 +6,14 @@
         function checkLogin() {
             // Get the username entered by the user
             var username = document.getElementById("username").value;
-
+            var i = 0;
             // Load the login data from login.json
             fetch("login.json")
                 .then(response => response.json())
                 .then(data => {
                     // Check if the username exists
                     var isValidUser = false; 
-                    var i=0;
+                    
                  for (; i < data.length; i++) {
                 //document.getElementById("debugging").innerHTML= data[i].username + data[i].password;
                     if (data[i].username == username) {
@@ -21,26 +21,48 @@
                     break;
                 }
                 }
-                    if (isValidUser) {
-                        // Get the secret question and answer for the username
-                        //document.getElementById("debugging").innerHTML = data[i].secret_question;
-                        let secretQuestion = data[i].secret_question;
-                        let correctAnswer = data[i].secret_answer;
+                if (isValidUser) {
+                    // Display the secret question
+                    document.getElementById("secret_question").innerHTML = data[i].secret_question ;
+                    // Display the secret answer
 
-                        // Ask the secret question
-                        var userAnswer = prompt(secretQuestion);
-
-                        // Check if the answer matches
-                        if (userAnswer === correctAnswer) {
-                            // Display the password
-                            var password = data[i].password;
-                            alert("Your password is: " + password);
-                        } else {
-                            alert("Incorrect answer. Please try again.");
-                        }
-                    } else {
-                        alert("Username not found. Please try again.");
-                    }
+                        var form = document.createElement('form');
+                        // Add input field for the user's answer
+                        var inputField = document.createElement('input');
+                        inputField.setAttribute('type', 'text');
+                        inputField.setAttribute('id', 'secretAnswerInput');
+                        inputField.setAttribute('placeholder', 'Enter your secret answer');
+                        inputField.classList.add('input-field'); 
+                        // Append input field to the form
+                        form.appendChild(inputField);
+                        var submitButton = document.createElement('input');
+                        submitButton.setAttribute('type', 'submit');
+                        submitButton.setAttribute('value', 'Submit');
+                        submitButton.classList.add('submit-button');
+                        // Append submit button to the form
+                        form.appendChild(submitButton);
+                        // Add event listener to capture the user's input
+                        form.addEventListener('submit', function(event) {
+                            event.preventDefault();
+                            var secretAnswer = document.getElementById('secretAnswerInput').value;
+                            if(secretAnswer == data[i].secret_answer){
+                                document.getElementById("password").innerHTML = "Your password is: " + data[i].password;
+                            } else {
+                                document.getElementById("password").innerHTML = "Invalid secret answer";
+                            }
+                            // Store the secret answer in a variable
+                            console.log('Secret Answer:', secretAnswer);
+                        });
+                        // Append the form to the secret question div
+                        document.getElementById("secret_question").appendChild(form);
+                    
+                } else {
+                    // Display an error message
+                    var invalidUsernameDiv = document.createElement('div');
+                        invalidUsernameDiv.textContent = 'Invalid username';
+                        document.getElementById("secret_question").appendChild(invalidUsernameDiv);
+                    
+                }
                 })
                 .catch(error => {
                     console.error("Error loading login data:", error);
@@ -50,23 +72,31 @@
     <style>
         body {
     font-family: Arial, sans-serif;
-    background-color: #fc46aa;
+    background-color: #170063;
     margin: 0;
     padding: 0;
+    background-image: url("lalaland.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
 }
 
 .container {
     max-width: 400px;
     margin: 50px auto;
-    background-color: #55dcfa;
+    background-color: #3a1c9c;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
+    color: #fdff03;
+    size: 20px;
 }
 
-h1 {
+h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #fdff03;
 }
 
 label {
@@ -75,32 +105,36 @@ label {
 }
 
 .input-field {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ced4da;
     border-radius: 5px;
+    color: #170063;
+    background-color: #fdff03;
 }
 
 .submit-button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #fdff03;
     color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    color:#170063;
+    font-size: 16px;
 }
 
 .submit-button:hover {
-    background-color: #0056b3;
+    background-color: #fdff03;
 }
 
 .back-link {
     display: block;
     text-align: center;
     margin-top: 20px;
-    color: #007bff;
+    color: #fdff03;
     text-decoration: none;
 }
 
@@ -111,11 +145,14 @@ label {
 </head>
 <body>
     <div class="container">
-        <h1>Forgot Password</h1>
-        <label for="username">Username:</label>
-        <input type="text" id="username" class="input-field">
-        <div id="debugging"></div>
+        <h2>Forgot Password</h2>
+        <div id="secret_question">
+            <label for="username">Username:</label>
+        <input type="text" id="username" class="input-field" >
         <button onclick="checkLogin()" class="submit-button">Submit</button>
+        </div>
+        <div id="password"></div>
+        <div id="debugging"></div>
         <a href="login.html" class="back-link">Back to Login</a>
     </div>
 </body>
