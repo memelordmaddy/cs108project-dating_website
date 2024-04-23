@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Send Mail</title>
+	<script src="https://smtpjs.com/v3/smtp.js">
+	</script>
+
+	<script type="text/javascript">
+		function sendEmail() {
+			window.open('mailto:test@example.com?subject=subject&body=body');
+		}
+	</script>
+</head>
+
+<body>
+	<form method="post">
+		<input type="button" value="Send Email"
+			onclick="sendEmail()" />
+	</form>
+</body>
+</html>

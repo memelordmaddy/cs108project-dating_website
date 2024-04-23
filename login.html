@@ -16,7 +16,7 @@
 
     <div class="login-container">
     
-    <form id="loginForm" class="login-form">
+    <form id="loginForm" class="login-form" >
         <h2>Login to find your perfect match!</h2>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
@@ -24,8 +24,10 @@
         <input type="password" id="password" name="password" required><br><br>
         <input type="submit" value="Login" onclick="validateForm()"> <br><br>
         <div class="forgot-password">
-        <a href="forgot.html">Forgot Password</a>
+        <a href="forgot.html">Forgot Password</a>  <br><br>
+        <a href="register.html">Register a New Account</a>
         </div>
+        <div id="debugging"></div>
     </form>
     </div>
     
@@ -38,7 +40,8 @@
         .then(response => response.json())
         .then(data => {
             var isValidUser = false; 
-            for (var i = 0; i < data.length; i++) {
+            var i=0;
+            for (; i < data.length; i++) {
                 //document.getElementById("debugging").innerHTML= data[i].username + data[i].password;
                 if (data[i].username == username && data[i].password == password) {
                     isValidUser = true;
@@ -46,8 +49,15 @@
                 }
             }
             if (isValidUser) {
-                window.location.replace("dating.html");
-                console.log("Valid username");
+                //document.getElementById("debugging").innerHTML= data[i].match;
+                if(data[i].match == "none")
+                {window.location.replace("dating.html");
+                console.log("Valid username");}
+                else {
+                    var index = Number(data[i].match);
+                    window.location.href = `match.html?index=${index}&user=${i}`;
+                    //window.location.replace(`match.html?index=${index}`);
+                } 
             } else {
                     console.log("Invalid username or password");
             }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form action="/register" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <label for="secret-question">Secret Question:</label>
+        <input type="text" id="secret_question" name="secret_question" required><br><br>
+        
+        <label for="secret-answer">Secret Answer:</label>
+        <input type="text" id="secret_answer" name="secret_answer" required><br><br>
+        
+        <input type="submit" value="Register">
+    </form>
+    <script>
+        // Function to get query parameters from URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Check if there's an error message in the query parameters
+        const errorMessage = getQueryParam('error');
+        if (errorMessage) {
+            // Display the error message to the user
+            const errorElement = document.createElement('p');
+            errorElement.textContent = errorMessage;
+            errorElement.style.color = 'red';
+            document.body.appendChild(errorElement);
+        }
+    </script>
+</body>
+</html>

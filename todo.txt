@@ -25,4 +25,11 @@ match.html:
     add styling:
     document:
 latex report:
-    make latex report:
+    make latex report
+
+
+install npm, install express
+use server.js for customization and nodetest.js for basic tasks
+
+fix email error
+fix already did error

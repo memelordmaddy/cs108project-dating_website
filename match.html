@@ -59,11 +59,12 @@
     // Get the index parameter from the URL
             const urlParams = new URLSearchParams(window.location.search);
             const index = parseInt(urlParams.get('index'));
-
+            const user = parseInt(urlParams.get('user'));
+            console.log(user);
     // Call foundMatch() with the index
-            foundMatch(index);
+            foundMatch(index, user);
             });
-            function foundMatch(index) {
+            function foundMatch(index, user) {
             //const urlParams = new URLSearchParams(window.location.search);
             //const index = parseInt(urlParams.get('index'));
             fetch('student.json')
@@ -76,12 +77,30 @@
                 <p>Gender: ${data[index].Gender}</p>
                 <p>Interests: ${data[index].Interests.join(', ')}</p>
                 <p>Hobbies: ${data[index].Hobbies.join(', ')}</p>
+                <p>Matched with: ${data[user].Name}</p>
                 <img src="${data[index].Photo}" alt="Student Photo" style="width: 25%; height: auto;"> <br><br>
+                <button onclick="mail()">Mail Your Match</button>
             `;
             // Append the created div to appropriate DOM element
+            // <p>Matched with: ${data[user].Name}</p>
             document.getElementById('match').appendChild(studentDiv);
         });
 }
+function mail() {
+    const urlParams = new URLSearchParams(window.location.search);
+            const index = parseInt(urlParams.get('index'));
+            const user = parseInt(urlParams.get('user'));
+
+    fetch('student.json')
+            .then(response => response.json())
+            .then(data => {
+            var email = data[index].Email;
+            var subject = 'Subject';
+            var body = 'Body';
+
+            window.open('mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));        
+            });
+            }
         </script>
     </body>
 </html>

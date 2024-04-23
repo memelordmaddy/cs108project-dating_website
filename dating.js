@@ -30,6 +30,13 @@ function findMatch(){
                 }
                 hobby_count.push(count);
             }
+            var j=69;
+            for (var i = 0; i < data.length; i++) {
+                if(data[i]["IITB Roll Number"]==rollNumber){
+                    j=i;
+                    break;
+                }
+            }
             weights=[]
             for(var i=0; i<data.length; i++)
             {
@@ -46,7 +53,8 @@ function findMatch(){
                 }
             }
             //document.getElementById('match').innerHTML = data[max_index].Name;
-            window.location.replace(`match.html?index=${max_index}`);
+            window.location.replace(`match.html?index=${max_index}&user=${j}`);
+            //window.location.replace(`match.html?index=${max_index}`); 
             //foundMatch(max_index);
         })
         .catch(error => {

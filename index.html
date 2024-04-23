@@ -1,0 +1,130 @@
+<!--
+    Login Page:- To access the input interface, there can be a login screen before that, which will require you to enter username and password of some sort.
+    If you are “registered” and you fill correct entries, then you login. 
+    If you aren’t “registered”, you can click on a button like “Sign Up”/“Register a New Account” to fill up a new username and a new password, which gets saved in another .json file (call it login.json). 
+    So, any existing/registered user must have their username and password in login.json. Hence any registered user can access this website (on the same machine) at a much later time in future.
+    You can write the code for the login page in a .html file named login.html.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+    <div class="login-container">
+    
+    <form id="loginForm" class="login-form">
+        <h2>Login to find your perfect match!</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="submit" value="Login" onclick="validateForm()"> <br><br>
+        <div class="forgot-password">
+        <a href="forgot.html">Forgot Password</a>  <br><br>
+        <a href="register.html">Register a New Account</a>
+        </div>
+    </form>
+    </div>
+    
+    <script >
+    function validateForm() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    //document.getElementById("debugging").innerHTML= username + password;
+    fetch('login.json')
+        .then(response => response.json())
+        .then(data => {
+            var isValidUser = false; 
+            for (var i = 0; i < data.length; i++) {
+                //document.getElementById("debugging").innerHTML= data[i].username + data[i].password;
+                if (data[i].username == username && data[i].password == password) {
+                    isValidUser = true;
+                    break;
+                }
+            }
+            if (isValidUser) {
+                window.location.replace("dating.html");
+                console.log("Valid username");
+            } else {
+                    console.log("Invalid username or password");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    </script>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #170063;
+    background-image: url("lalaland.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+.login-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center;
+        height: 100vh;
+        
+    }
+.login-form {
+    border: 2px solid #fdff03;
+    width: 300px;
+    padding: 20px;
+    background-color: #3a1c9c;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    color: #fdff03;
+}
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fdff03;
+}
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #3a1c9c;
+    background-color: #ffff5a;
+    border-radius: 5px;
+}
+.login-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #fdff03;
+    border: none;
+    border-radius: 5px;
+    color: #3a1c9c;
+    font-size: 16px;
+    cursor: pointer;
+}
+.login-form input[type="submit"]:hover {
+    background-color: #fdff03;
+}
+.forgot-password {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .forgot-password a {
+        color: #fdff03;
+        text-decoration: none;
+    }
+    .forgot-password a:hover {
+        text-decoration: underline;
+    }
+    </style>
+</body>
+</html>
