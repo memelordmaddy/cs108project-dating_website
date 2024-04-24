@@ -49,15 +49,8 @@
                 }
             }
             if (isValidUser) {
-                //document.getElementById("debugging").innerHTML= data[i].match;
-                if(data[i].match == "none")
-                {window.location.replace("dating.html");
-                console.log("Valid username");}
-                else {
-                    var index = Number(data[i].match);
-                    window.location.href = `match.html?index=${index}&user=${i}`;
-                    //window.location.replace(`match.html?index=${index}`);
-                } 
+                window.location.replace("dating.html");
+                console.log("Valid username");
             } else {
                     console.log("Invalid username or password");
             }

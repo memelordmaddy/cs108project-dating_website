@@ -56,7 +56,7 @@ app.post('/register', (req, res) => {
     });
 });
 
-app.post('/submitForm', (req, res) => {
+app.post('/studentjsonreg', (req, res) => {
     const formData = req.body;
 
     // Read existing data from student.json
@@ -84,7 +84,6 @@ app.post('/submitForm', (req, res) => {
         });
     });
 });
-
 
 // Catch-all route to serve HTML files
 app.get('*', (req, res) => {

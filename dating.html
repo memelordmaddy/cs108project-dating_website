@@ -18,7 +18,7 @@ Do this work in files named “dating.html” and “style.css”. You can assum
     <body>
         <div class="container">
         <h1>Personal Details</h1>
-        <form id="personalDetailsForm" action="/submitForm" method="post">
+        <form id="personalDetailsForm" action="/studentjsonreg" method="post">
             <label for="rollNumber">IITB Roll Number:</label>
             <input type="text" id="rollNumber" name="IITB Roll Number" required><br><br>
             
@@ -33,11 +33,11 @@ Do this work in files named “dating.html” and “style.css”. You can assum
 
             <div class="gender-container">
             <label for="gender">Gender:</label>
-            <input type="radio" id="male" name="Gender" value="male" required>
+            <input type="radio" id="male" name="Gender" value="Male" required>
             <label for="male">Male</label>
-            <input type="radio" id="female" name="Gender" value="female" required>
+            <input type="radio" id="female" name="Gender" value="Female" required>
             <label for="female">Female</label>
-            <input type="radio" id="other" name="Gender" value="other" required>
+            <input type="radio" id="other" name="Gender" value="Other" required>
             <label for="other">Other</label><br><br>
             </div>
             <div class="checkbox-container">
@@ -81,6 +81,23 @@ Do this work in files named “dating.html” and “style.css”. You can assum
 
             <label for="photo">Photo:</label>
             <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+
+            <label for="preferredGender">Preferred Gender:</label>
+            <select id="preferredGender" name="Preferred Gender" required>
+            <option value="no_preference">No Preference</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+            </select><br><br>
+    
+            <label for="ageGroup">Preferred Age Group:</label>
+            <select id="ageGroup" name="Preferred Age Group" required>
+            <option value="no_preference">No Preference</option>
+            <option value="18-25">18-25</option>
+            <option value="26-35">26-35</option>
+            <option value="36-45">36-45</option>
+            <option value="46+">46+</option>
+            </select><br><br>
 
             <input type="submit" value="Submit" onclick="findMatch()">
         </form>

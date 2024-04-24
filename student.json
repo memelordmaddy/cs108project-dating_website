@@ -119,20 +119,19 @@
     "Photo": "photos/vivek_kumar.jpg"
   },
   {
-    "IITB Roll Number": "2132300",
-    "Name": "Madhav",
-    "Year of Study": "1",
-    "Age": "18",
-    "Gender": "male",
+    "IITB Roll Number": "2020069",
+    "Name": "Raju Bhai",
+    "Year of Study": "1st",
+    "Age": 85,
     "Interests": [
-      "Sports",
       "Movies",
-      "Music"
+      "Technology"
     ],
     "Hobbies": [
-      "Gardening",
-      "Playing musical instruments"
+      "Painting",
+      "Watching YouTube/Instagram"
     ],
-    "photo": "thumbnail.jpg"
+    "Email": "raju@example.com",
+    "Photo": "photos/balaji.jpg"
   }
 ]

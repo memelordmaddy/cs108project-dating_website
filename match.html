@@ -67,6 +67,8 @@
             function foundMatch(index, user) {
             //const urlParams = new URLSearchParams(window.location.search);
             //const index = parseInt(urlParams.get('index'));
+            if(index != -1)
+            {
             fetch('student.json')
             .then(response => response.json())
             .then(data => {
@@ -84,23 +86,48 @@
             // Append the created div to appropriate DOM element
             // <p>Matched with: ${data[user].Name}</p>
             document.getElementById('match').appendChild(studentDiv);
-        });
+        }); }
+        else
+        {
+            const studentDiv = document.createElement('div');
+            studentDiv.innerHTML = `
+                <h3>No Match found</h3>
+            `;
+            document.getElementById('match').appendChild(studentDiv);
+        }
 }
 function mail() {
     const urlParams = new URLSearchParams(window.location.search);
-            const index = parseInt(urlParams.get('index'));
-            const user = parseInt(urlParams.get('user'));
+    const index = parseInt(urlParams.get('index'));
+    const user = parseInt(urlParams.get('user'));
 
     fetch('student.json')
-            .then(response => response.json())
-            .then(data => {
-            var email = data[index].Email;
-            var subject = 'Subject';
-            var body = 'Body';
+        .then(response => response.json())
+        .then(data => {
+            const userInterests = data[user].Interests;
+            const userHobbies = data[user].Hobbies;
+            const receiverInterests = data[index].Interests;
+            const receiverHobbies = data[index].Hobbies;
 
-            window.open('mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));        
-            });
-            }
+            // Find the intersection of interests and hobbies
+            const sharedInterests = userInterests.filter(interest => receiverInterests.includes(interest));
+            const sharedHobbies = userHobbies.filter(hobby => receiverHobbies.includes(hobby));
+
+            // Create custom mail content
+            const mailContent = `Dear ${data[index].Name},\n\n` +
+                `I noticed that we share some interests like ${sharedInterests.join(', ')} and hobbies such as ${sharedHobbies.join(', ')}, which I find exciting! ` +
+                `It would be great to connect and explore these common interests together.\n\n` +
+                `Looking forward to getting to know you better!\n\n` +
+                `Best regards,\n${data[user].Name}`;
+
+            // Create mailto link
+            const mailtoLink = `mailto:${data[index].Email}?subject=Dating Proposal&body=${encodeURIComponent(mailContent)}`;
+
+            // Open default email client with pre-filled message
+            window.location.href = mailtoLink;
+        });
+}
+
         </script>
     </body>
 </html>
