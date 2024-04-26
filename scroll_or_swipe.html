@@ -3,63 +3,137 @@
 <head>
     <title>Student Details</title>
     <style>
-        body {
-    font-family: Arial, sans-serif;
-    background-color: #fc46aa;
+    body {
     margin: 0;
     padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+    background-image: url("backgroundimages/astarisborn.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
 }
 
 .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #55dcfa;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+            position: absolute;
+            top: 50%;
+            left: 80%;
+            transform: translate(-50%, -50%);
+            width: 800px; /* Set container width */
+            max-width: 80%; /* Limit container width */
+            padding: 20px; /* Add some padding */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow */
+        }
 
 h1 {
-    text-align: center;
-    margin-bottom: 20px;
+    color: #007b86;
+    font-size: 36px;
+    margin-top: 0; /* Remove default margin */
+    text-align: left;
 }
 
 .student {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color:#55dcfa;
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1); /* Adjust opacity as needed */
+    backdrop-filter: blur(10px); /* Adjust blur strength as needed */
+    padding: 20px;
+ 
+    width: 800px; /* Adjust width as needed */
+  
+    color: #007b86;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
 }
-
+.details {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+.details p {
+            margin: 5px 10px;
+        }
 .student img {
-    display: block;
-    margin: 0 auto;
-    width: 25%;
+    width: 25%; /* Adjust image width */
     height: auto;
     border-radius: 5px;
+    margin-left: auto; /* Push image to the right */
+    margin-right: 10px; /* Add some spacing */
+    position: absolute;
+    top: 10px; /* Position image 20 pixels down from the top */
+    right: 140px; /* Position image 20 pixels from the right edge */
 }
+
+.buttons {
+            display: flex;
+            justify-content: space-between; /* Distribute buttons evenly */
+            margin-top: 20px;
+        }
 
 button {
-    display: block;
-    margin: 10px auto;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-button:hover {
-    background-color: #45a049;
-}
+button.accept {
+            background-color: #007b86;
+            color: white;
+            padding: 12px 24px; /* Increase padding for larger buttons */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    bottom: 20px;
+    right: 180px;
+        }
+
+button.reject {
+            background-color: #007b86;
+            color: white;
+            padding: 12px 24px; /* Increase padding for larger buttons */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    bottom: 20px;
+    left: 100px;
+
+        }
 
     </style>
 </head>
 <body>
+    <audio id="audio" style="display: none;" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var audio = document.getElementById("audio");
+            
+            // Check if playback time is stored in sessionStorage
+            var storedTime = sessionStorage.getItem("audioPlaybackTime");
+            if (storedTime) {
+                audio.currentTime = parseFloat(storedTime);
+            }
+            
+            // Start or resume audio playback
+            audio.play();
+            
+            // Store current playback time in sessionStorage when navigating away from the page
+            window.addEventListener("beforeunload", function() {
+                sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
+            });
+        });
+    </script>
     <div class="container">
-        <h1>Student Details</h1>
+        
         <div id="student-list">
+           
             <!-- Student details will be dynamically added here -->
         </div>
     </div>
@@ -78,15 +152,19 @@ button:hover {
             const studentDiv = document.createElement('div');
             studentDiv.classList.add('student');
             studentDiv.innerHTML = `
-                <h3>${student.Name}</h3>
-                <p>Age: ${student.Age}</p>
-                <p>Gender: ${student.Gender}</p>
-                <p>Interests: ${student.Interests.join(', ')}</p>
-                <p>Hobbies: ${student.Hobbies.join(', ')}</p>
-                <img src="${student.Photo}" alt="Student Photo">
+               
+                <h2 class="details">${student.Name}</h2>
+                <p class="details">Age: ${student.Age}</p>
+                <p class="details">Gender: ${student.Gender}</p>
+                <p class="details">Interests: ${student.Interests.join(', ')}</p>
+                <p class="details">Hobbies: ${student.Hobbies.join(', ')}</p> 
+                <img src="${student.Photo}" alt="Student Photo" >
                 <br>
-                <button onclick="acceptStudent(${index})">Smash</button>
-                <button onclick="rejectStudent(${index})">Pass</button>
+                <div class="buttons">
+                <br><br><br>
+                <button class="accept" onclick="acceptStudent(${index})" >Smash</button>
+                <button class="reject" onclick="rejectStudent(${index})" >Pass</button>
+                </div>
             `;
             studentList.innerHTML = '';
             studentList.appendChild(studentDiv);

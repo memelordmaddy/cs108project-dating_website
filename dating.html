@@ -16,9 +16,35 @@ Do this work in files named “dating.html” and “style.css”. You can assum
         <title>Dating</title>
     </head>
     <body>
+        <audio id="audio" style="display: none;" loop>
+            <source src="music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var audio = document.getElementById("audio");
+                
+                // Check if playback time is stored in sessionStorage
+                var storedTime = sessionStorage.getItem("audioPlaybackTime");
+                if (storedTime) {
+                    audio.currentTime = parseFloat(storedTime);
+                }
+                
+                // Start or resume audio playback
+                audio.play();
+                var currentTime = audio.currentTime;
+                console.log("Current playback time: " + currentTime + " seconds");
+                
+                // Store current playback time in sessionStorage when navigating away from the page
+                window.addEventListener("beforeunload", function() {
+                    sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
+                });
+            });
+        </script>
         <div class="container">
-        <h1>Personal Details</h1>
+        
         <form id="personalDetailsForm" action="/studentjsonreg" method="post">
+            <h2 class="formh1">Personal Details</h2>
             <label for="rollNumber">IITB Roll Number:</label>
             <input type="text" id="rollNumber" name="IITB Roll Number" required><br><br>
             
@@ -42,41 +68,56 @@ Do this work in files named “dating.html” and “style.css”. You can assum
             </div>
             <div class="checkbox-container">
             <label for="interests">Interests:</label><br>
-            <input type="checkbox" id="interest1" name="Interests" value="Travelling">
-            <label for="interest1">Travelling</label><br>
-            <input type="checkbox" id="interest2" name="Interests" value="Sports">
-            <label for="interest2">Sports</label><br>
-            <input type="checkbox" id="interest3" name="Interests" value="Movies">
-            <label for="interest3">Movies</label><br>
-            <input type="checkbox" id="interest4" name="Interests" value="Music">
-            <label for="interest4">Music</label><br>
-            <input type="checkbox" id="interest5" name="Interests" value="Literature">
-            <label for="interest5">Literature</label><br>
-            <input type="checkbox" id="interest6" name="Interests" value="Technology">
-            <label for="interest6">Technology</label><br>
-            <input type="checkbox" id="interest7" name="Interests" value="Fashion">
-            <label for="interest7">Fashion</label><br>
-            <input type="checkbox" id="interest8" name="Interests" value="Art">
-            <label for="interest8">Art</label><br><br>
+            <label for="interest1">Travelling</label>
+            <input type="checkbox" id="interest1" name="Interests" value="Travelling"><br>
+            
+            <label for="interest2">Sports</label>
+            <input type="checkbox" id="interest2" name="Interests" value="Sports"><br>
+            
+            <label for="interest3">Movies</label>
+            <input type="checkbox" id="interest3" name="Interests" value="Movies"><br>
+            
+            <label for="interest4">Music</label>
+            <input type="checkbox" id="interest4" name="Interests" value="Music"><br>
+            
+            <label for="interest5">Literature</label>
+            <input type="checkbox" id="interest5" name="Interests" value="Literature"><br>
+            
+            <label for="interest6">Technology</label>
+            <input type="checkbox" id="interest6" name="Interests" value="Technology"><br>
+            
+            <label for="interest7">Fashion</label>
+            <input type="checkbox" id="interest7" name="Interests" value="Fashion"><br>
+            
+            <label for="interest8">Art</label>
+            <input type="checkbox" id="interest8" name="Interests" value="Art"><br><br>
             </div>
             <div class="checkbox-container">
             <label for="hobbies">Hobbies:</label><br>
-            <input type="checkbox" id="hobby1" name="Hobbies" value="Reading">
-            <label for="hobby1">Reading</label><br>
-            <input type="checkbox" id="hobby2" name="Hobbies" value="Cooking">
-            <label for="hobby2">Cooking</label><br>
-            <input type="checkbox" id="hobby3" name="Hobbies" value="Coding">
-            <label for="hobby3">Coding</label><br>
-            <input type="checkbox" id="hobby4" name="Hobbies" value="Gardening">
-            <label for="hobby4">Gardening</label><br>
-            <input type="checkbox" id="hobby5" name="Hobbies" value="Painting">
-            <label for="hobby5">Painting</label><br>
-            <input type="checkbox" id="hobby6" name="Hobbies" value="Watching YouTube/Instagram">
-            <label for="hobby6">Watching YouTube/Instagram</label><br>
-            <input type="checkbox" id="hobby7" name="Hobbies" value="Playing musical instruments">
-            <label for="hobby7">Playing musical instruments</label><br>
-            <input type="checkbox" id="hobby8" name="Hobbies" value="Photography">
-            <label for="hobby8">Photography</label><br><br>
+            <label for="hobby1">Reading</label>
+<input type="checkbox" id="hobby1" name="Hobbies" value="Reading"><br>
+
+<label for="hobby2">Cooking</label>
+<input type="checkbox" id="hobby2" name="Hobbies" value="Cooking"><br>
+
+<label for="hobby3">Coding</label>
+<input type="checkbox" id="hobby3" name="Hobbies" value="Coding"><br>
+
+<label for="hobby4">Gardening</label>
+<input type="checkbox" id="hobby4" name="Hobbies" value="Gardening"><br>
+
+<label for="hobby5">Painting</label>
+<input type="checkbox" id="hobby5" name="Hobbies" value="Painting"><br>
+
+<label for="hobby6">Watching YouTube/Instagram</label>
+<input type="checkbox" id="hobby6" name="Hobbies" value="Watching YouTube/Instagram"><br>
+
+<label for="hobby7">Playing musical instruments</label>
+<input type="checkbox" id="hobby7" name="Hobbies" value="Playing musical instruments"><br>
+
+<label for="hobby8">Photography</label>
+<input type="checkbox" id="hobby8" name="Hobbies" value="Photography"><br><br>
+
             </div>
 
             <label for="photo">Photo:</label>
@@ -101,35 +142,52 @@ Do this work in files named “dating.html” and “style.css”. You can assum
 
             <input type="submit" value="Submit" onclick="findMatch()">
         </form>
+        <a href="scroll_or_swipe.html">Go to Scroll or Swipe </a> <br> 
+        <a href="login.html">Logout</a>
         <div id="debugging"></div>
         <script src="dating.js" ></script>
-        <a href="scroll_or_swipe.html">Go to Scroll or Swipe</a>
-        <a href="login.html">Logout</a>
+        
         </div>
-        <style>
-            body {
+<style>
+body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #fc46aa;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url("backgroundimages/kiminonawa.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto; /* Center the container horizontally */
-    padding: 20px;
-    background-color: #39ceff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 100vh;
 }
 
-h1 {
+.formh1 {
     text-align: center;
     margin-bottom: 20px;
+    color: #ccddff;
+    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000; 
+
 }
 
 form {
-    text-align: left;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 10px;
+    width: 800px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0);
+    color: #ccddff;
 }
 
 label {
@@ -139,42 +197,27 @@ label {
 
 input[type="text"],
 input[type="number"],
-input[type="file"] {
-    width: calc(100% - 12px); /* Adjust for input padding */
-    padding: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #cccccc;
+input[type="file"],
+select {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #000000;
+    background-color: #ccddff;
     border-radius: 5px;
 }
 
 input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #4caf50;
+    background-color: #ccddff;
     border: none;
     border-radius: 5px;
-    color: #ffffff;
+    color: #3a1c9c;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 10px;
 }
 
-input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-a {
-    display: block;
-    margin-top: 10px;
-    text-align: center;
-    text-decoration: none;
-    color: #333333;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-/* CSS for checkboxes */
 .checkbox-container {
     display: flex;
     flex-wrap: wrap;
@@ -188,24 +231,32 @@ a:hover {
 .checkbox-container input[type="checkbox"] {
     margin-right: 10px;
 }
-.checkbox-container input[type="checkbox"] {
-    display: inline-block;
-    margin-right: 5px; /* Adjust as needed */
-}
 
 .checkbox-container label {
-    display: inline-block;
-    margin-right: 15px; /* Adjust as needed */
+    display: inline-flex; /* or inline-block */
+    align-items: center; /* to align checkbox and text vertically */
+    margin-right: 15px;
     margin-bottom: 5px;
+    
 }
+
+
+
 .gender-container input[type="radio"],
 .gender-container label {
     display: inline-block;
     margin-right: 15px;
 }
 
-
-
-        </style>
+.link-section {
+    margin-top: 20px;
+}
+a {
+    color: #ccddff;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 20px;
+}
+</style>
     </body> 
     </html>

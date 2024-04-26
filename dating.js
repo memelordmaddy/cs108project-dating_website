@@ -4,6 +4,8 @@ function findMatch(){
         const rollNumber = document.getElementById('rollNumber').value;
         var preferredGender = document.getElementById("preferredGender").value;
         var ageGroup = document.getElementById("ageGroup").value;
+        const urlParams = new URLSearchParams(window.location.search);
+        const loginid = parseInt(urlParams.get('user'));
         if(ageGroup == "46+"){
             lowerBound = 46;
             upperBound = Infinity;
@@ -25,6 +27,7 @@ function findMatch(){
         .then(response => response.json())
         .then(data => {
             interest_count= [];
+            var length = data.length;
             for (var i = 0; i < data.length; i++) {
                 var count=0;
                 for (var j = 0; j < intandhob.length; j++) {
@@ -79,6 +82,31 @@ function findMatch(){
                     max_index=i;
                 }
             }
+            /*
+            const loginData = {
+                "match": max_index,
+                "studentjsonid": length
+            };
+            
+            // Make a POST request to update login.json with the new loginData
+            fetch('/loginjsondata', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Login data updated successfully');
+                } else {
+                    console.error('/loginjsondata failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+            */
             if(weights[max_index]==0)
             {
                 window.location.replace(`match.html?index=${-1}&user=${j}`);

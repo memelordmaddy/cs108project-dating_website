@@ -13,11 +13,34 @@
     <title>Login</title>
 </head>
 <body>
-
+    <audio id="audio" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var audio = document.getElementById("audio");
+            
+            // Check if playback time is stored in sessionStorage
+            var storedTime = sessionStorage.getItem("audioPlaybackTime");
+            if (storedTime) {
+                audio.currentTime = parseFloat(storedTime);
+            }
+            
+            // Start or resume audio playback
+            audio.play();
+            
+            // Store current playback time in sessionStorage when navigating away from the page
+            window.addEventListener("beforeunload", function() {
+                sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
+            });
+        });
+    </script>
+    <h1 class="heading">Swipe, Match, Love !</h1>
     <div class="login-container">
     
-    <form id="loginForm" class="login-form" >
-        <h2>Login to find your perfect match!</h2>
+    <form id="loginForm" class="login-form">
+        <h2>Login</h2>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         <label for="password">Password:</label>
@@ -27,7 +50,6 @@
         <a href="forgot.html">Forgot Password</a>  <br><br>
         <a href="register.html">Register a New Account</a>
         </div>
-        <div id="debugging"></div>
     </form>
     </div>
     
@@ -40,8 +62,7 @@
         .then(response => response.json())
         .then(data => {
             var isValidUser = false; 
-            var i=0;
-            for (; i < data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 //document.getElementById("debugging").innerHTML= data[i].username + data[i].password;
                 if (data[i].username == username && data[i].password == password) {
                     isValidUser = true;
@@ -49,8 +70,15 @@
                 }
             }
             if (isValidUser) {
-                window.location.replace("dating.html");
-                console.log("Valid username");
+                //document.getElementById("debugging").innerHTML= data[i].match;
+                if(data[i].match == "none")
+                {window.location.href = `dating.html?user=${i}`;
+                console.log("Valid username");}
+                else {
+                    var index = Number(data[i].match);
+                    window.location.href = `match.html?index=${index}&user=${data[i].studentjsonid}`;
+                    //window.location.replace(`match.html?index=${index}`);
+                } 
             } else {
                     console.log("Invalid username or password");
             }
@@ -64,69 +92,97 @@
         body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #170063;
-    background-image: url("lalaland.jpg");
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+    background-image: url("backgroundimages/lalaland.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     overflow: hidden;
 }
 .login-container {
-        display: flex;
-        justify-content: center; /* Center horizontally */
-        align-items: center;
-        height: 100vh;
-        
-    }
-.login-form {
-    border: 2px solid #fdff03;
-    width: 300px;
-    padding: 20px;
-    background-color: #3a1c9c;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center; /* Center horizontally */
     align-items: center;
-    color: #fdff03;
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    right: 20%;
+    transform: translate(0, -50%);
 }
+.heading {
+color: #f2d244; /* Adjust color */
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 50px; /* Adjust font size as needed */
+  position: absolute;
+  top: 20%;
+  left: 40px; /* Adjust left position */
+  transform: translateY(-50%);
+  opacity: 0;
+  animation: fadeIn 1.5s forwards; 
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.login-form {
+    background-color: rgba(255, 255, 255, 0.1); /* Adjust opacity as needed */
+    backdrop-filter: blur(10px); /* Adjust blur strength as needed */
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px; /* Adjust width as needed */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Add drop shadow */
+    color: #f2d244;
+}
+
 .login-form h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #fdff03;
+    color: #f2d244;
 }
+
 .login-form input[type="text"],
 .login-form input[type="password"] {
-    width: 95%;
+    width: 90%; /* Adjust width as needed */
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #3a1c9c;
-    background-color: #ffff5a;
+    background-color: #f2d244;
     border-radius: 5px;
 }
+
 .login-form input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #fdff03;
+    background-color: #f2d244;
     border: none;
     border-radius: 5px;
     color: #3a1c9c;
     font-size: 16px;
     cursor: pointer;
 }
+
 .login-form input[type="submit"]:hover {
-    background-color: #fdff03;
+    background-color: #f2d244;
 }
+
 .forgot-password {
-        text-align: center;
-        margin-top: 10px;
-    }
-    .forgot-password a {
-        color: #fdff03;
-        text-decoration: none;
-    }
-    .forgot-password a:hover {
-        text-decoration: underline;
-    }
+    text-align: center;
+    margin-top: 10px;
+}
+
+.forgot-password a {
+    color: #f2d244;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
     </style>
 </body>
 </html>

@@ -1,56 +1,31 @@
-<!--
-    When the person clicks “Submit”, a new tab will appear showing the “right match” for that person along with their details (if you succeed in finding the “right match” for that person). 
-    The structure for this interface will be done in a separate .html file named “match.html”, but the same CSS and Javascript files will be used, i.e. style.css and script.js
--->
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <style>
-       body {
-            font-family: Arial, sans-serif;
-            background-color: #fc46aa;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        
-        #match {
-            display: flex;
-            max-width: 600px;
-            background-color: #55dcfa;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .match-details {
-            flex: 1;
-            padding-right: 20px;
-        }
-        
-        .match-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .match-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-    </style>        
     </head>
     <body>
+        <audio id="audio" style="display: none;" loop>
+            <source src="music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var audio = document.getElementById("audio");
+                
+                // Check if playback time is stored in sessionStorage
+                var storedTime = sessionStorage.getItem("audioPlaybackTime");
+                if (storedTime) {
+                    audio.currentTime = parseFloat(storedTime);
+                }
+                
+                // Start or resume audio playback
+                audio.play();
+                
+                // Store current playback time in sessionStorage when navigating away from the page
+                window.addEventListener("beforeunload", function() {
+                    sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
+                });
+            });
+        </script>
         <div id="match">
             <!-- Match details will be dynamically added here -->
         </div>
@@ -69,9 +44,23 @@
             //const index = parseInt(urlParams.get('index'));
             if(index != -1)
             {
+                
             fetch('student.json')
             .then(response => response.json())
             .then(data => {
+            
+                if(data[index].Gender == data[user].Gender)
+                { 
+                    if(data[index].Gender=="Male")
+                    {document.body.classList.add('gaymatch');}
+                    else
+                    {document.body.classList.add('lesbianmatch');}
+                }
+                else
+                {
+                    document.body.classList.add('straightmatch');
+                }
+
             const studentDiv = document.createElement('div');
             studentDiv.innerHTML = `
                 <h3>${data[index].Name}</h3>
@@ -129,6 +118,33 @@ function mail() {
 }
 
         </script>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Background for same gender match */
+body.gaymatch {
+    background-image: url('backgroundimages/brokebackmountain.jpg');
+}
+
+/* Background for different gender match */
+body.straightmatch {
+    background-image: url('backgroundimages/pastlives.jpg');
+}
+body.lesbianmatch {
+    background-image: url('backgroundimages/portraitofaladyonfire.jpg');
+}
+    </style>
     </body>
 </html>
 

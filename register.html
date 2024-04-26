@@ -4,6 +4,31 @@
     <title>User Registration</title>
 </head>
 <body>
+    <audio id="audio" style="display: none;" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var audio = document.getElementById("audio");
+            
+            // Check if playback time is stored in sessionStorage
+            var storedTime = sessionStorage.getItem("audioPlaybackTime");
+            if (storedTime) {
+                audio.currentTime = parseFloat(storedTime);
+            }
+            
+            // Start or resume audio playback
+            audio.play();
+            
+            // Store current playback time in sessionStorage when navigating away from the page
+            window.addEventListener("beforeunload", function() {
+                sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
+            });
+        });
+    </script>
+    <div class="register-conatiner">
+        <div class="register-form">
     <h2>User Registration</h2>
     <form action="/register" method="POST">
         <label for="username">Username:</label>
@@ -37,5 +62,69 @@
             document.body.appendChild(errorElement);
         }
     </script>
+    </div>
+</div>
+<style>
+    body {
+            margin: 0;
+            padding: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-image: url("backgroundimages/lalaland.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register-container {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+            height: 100vh;
+            position: absolute;
+            top: 50%;
+            right: 20%;
+            transform: translate(0, -50%);
+        }
+        .register-form {
+            background-color: rgba(255, 255, 255, 0.1); /* Adjust opacity as needed */
+            backdrop-filter: blur(10px); /* Adjust blur strength as needed */
+            padding: 10px;
+            border-radius: 10px;
+            width: 300px; /* Adjust width as needed */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Add drop shadow */
+            color: #f2d244;
+        }
+
+        .register-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f2d244;
+        }
+        .register-form input[type="text"],
+        .register-form input[type="password"] {
+            width: 90%; /* Adjust width as needed */
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #3a1c9c;
+            background-color: #f2d244;
+            border-radius: 5px;
+        }
+
+        .register-form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #f2d244;
+            border: none;
+            border-radius: 5px;
+            color: #3a1c9c;
+            font-size: 16px;
+            cursor: pointer;
+        }
+</style>
 </body>
 </html>

@@ -85,11 +85,25 @@ app.post('/studentjsonreg', (req, res) => {
     });
 });
 
+
 // Catch-all route to serve HTML files
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, req.url));
-});
+    // Determine the path of the requested HTML file
+    const requestedFile = req.url.endsWith('.html') ? req.url : '/login.html';
+    const filePath = path.join(__dirname, requestedFile);
 
+    // Read the HTML file
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        // Send the HTML content with the music player included
+        res.send(data);
+    });
+});
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

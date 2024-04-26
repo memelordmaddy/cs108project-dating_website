@@ -75,7 +75,7 @@
     background-color: #170063;
     margin: 0;
     padding: 0;
-    background-image: url("lalaland.jpg");
+    background-image: url("backgroundimages/lalaland.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -83,20 +83,23 @@
 }
 
 .container {
-    max-width: 400px;
-    margin: 50px auto;
-    background-color: #3a1c9c;
-    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Adjust opacity as needed */
+    backdrop-filter: blur(10px); /* Adjust blur strength as needed */
+    padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
-    color: #fdff03;
-    size: 20px;
+    width: 300px; /* Adjust width as needed */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Add drop shadow */
+    color: #f2d244;
+    position: absolute;
+    top: 20px; /* Adjust the distance from the top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #fdff03;
+    color: #f2d244;
 }
 
 label {
@@ -108,17 +111,17 @@ label {
     width: 95%;
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ced4da;
+    border: 1px solid #f2d244;
     border-radius: 5px;
     color: #170063;
-    background-color: #fdff03;
+    background-color: #f2d244;
 }
 
 .submit-button {
     width: 100%;
     padding: 10px;
-    background-color: #fdff03;
-    color: #ffffff;
+    background-color: #f2d244;
+    color: #f2d244;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -127,14 +130,14 @@ label {
 }
 
 .submit-button:hover {
-    background-color: #fdff03;
+    background-color: #f2d244;
 }
 
 .back-link {
     display: block;
     text-align: center;
     margin-top: 20px;
-    color: #fdff03;
+    color: #f2d244;
     text-decoration: none;
 }
 
@@ -144,6 +147,29 @@ label {
     </style>
 </head>
 <body>
+    <audio id="audio" style="display: none;" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var audio = document.getElementById("audio");
+            
+            // Check if playback time is stored in sessionStorage
+            var storedTime = sessionStorage.getItem("audioPlaybackTime");
+            if (storedTime) {
+                audio.currentTime = parseFloat(storedTime);
+            }
+            
+            // Start or resume audio playback
+            audio.play();
+            
+            // Store current playback time in sessionStorage when navigating away from the page
+            window.addEventListener("beforeunload", function() {
+                sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
+            });
+        });
+    </script>
     <div class="container">
         <h2>Forgot Password</h2>
         <div id="secret_question">
