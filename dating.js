@@ -1,10 +1,11 @@
 function findMatch(){
+        console.log("entered findMatch")
         const intandhob = []; // Array to store the selected interests and hobbies
         const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked'); // Get all the checked checkboxes
         const rollNumber = document.getElementById('rollNumber').value; // Get the roll number of the user
         var preferredGender = document.getElementById("preferredGender").value; // Get the prefferedGender
         var ageGroup = document.getElementById("ageGroup").value; // Get the prefferedAgeGroup
-        const urlParams = new URLSearchParams(window.location.search); 
+        //const urlParams = new URLSearchParams(window.location.search); 
         //const loginid = parseInt(urlParams.get('user')); // Get the index of user in login.json for which the match is to be found
         if(ageGroup == "46+"){
             lowerBound = 46;
@@ -26,12 +27,14 @@ function findMatch(){
         .then(response => response.json())
         .then(data => { 
             interest_count= []; // Array to store the count of interests
-            var length = data.length; // Get the length of the data array for getting the user's student jason id
             for (var i = 0; i < data.length; i++) {
                 var count=0; 
-                for (var j = 0; j < intandhob.length; j++) {
-                    if(data[i].Interests.includes(intandhob[j])){ // Check if the interests of the user match with the selected interests
+                for (var j = 0; j < data[i].Interests.length; j++) {
+                    if(intandhob.includes(data[i].Interests[j])){ // Check if the interests of the user match with the selected interests
                         count++;
+                    }
+                    else {
+                        count -= 0.1; // Penalize for not having the interest
                     }
                 }
                 interest_count.push(count); // Push the count of interests to the array
@@ -39,9 +42,14 @@ function findMatch(){
             hobby_count=[]; // Array to store the count of hobbies
             for (var i = 0; i < data.length; i++) {
                 var count=0;
-                for (var j = 0; j < intandhob.length; j++) {
-                    if(data[i].Hobbies.includes(intandhob[j])){ // Check if the hobbies of the user match with the selected hobbies
+                for (var j = 0; j < data[i].Hobbies.length; j++) {
+                    if(intandhob.includes(data[i].Hobbies[j])){ // Check if the hobbies of the user match with the selected hobbies
                         count++;
+                    }
+                    else
+                    {
+                        count-=0.1; // Penalize for not having the hobby
+                    
                     }
                 }
                 hobby_count.push(count); // Push the count of hobbies to the array
@@ -57,13 +65,15 @@ function findMatch(){
                     age_preference.push(0); 
                 }
             }
-            var j=data.length;
-            for (var i = 0; i < data.length; i++) {
-                if(data[i]["IITB Roll Number"]==rollNumber){ // find the studentjson index of the user
-                    j=i;
+            var k=0;
+            for (; k < data.length; k++) {
+                if(data[k]["IITB Roll Number"]==rollNumber){ // find the studentjson index of the user
+                    j=k;
                     break;
                 }
             }
+            j=k;
+
             weights=[] // initialize the weights array
             for(var i=0; i<data.length; i++)
             {   if(data[i]["Gender"]==preferredGender || preferredGender=="no_preference") // push weights iff the gender filte ris satisfied
@@ -94,31 +104,6 @@ function findMatch(){
                     }
                 }
             }
-            /*
-            const loginData = {
-                "match": max_index,
-                "studentjsonid": length
-            };
-            
-            // Make a POST request to update login.json with the new loginData
-            fetch('/loginjsondata', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(loginData)
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Login data updated successfully');
-                } else {
-                    console.error('/loginjsondata failed');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-            */
             if(weights[max_index]==0) // no intersection nor age preference case
             {
                 window.location.replace(`match.html?index=${-1}&user=${j}`); // give index as -1 to active no match version of match.html
