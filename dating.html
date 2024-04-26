@@ -6,7 +6,7 @@
 </head>
     <body>
         <div class="container"> <!-- container for styling purposes -->
-        <form id="personalDetailsForm" action="/studentjsonreg" method="post" onsubmit="findMatch()"> <!-- calling the /studentjsonreg endpoiint in server.js on form submission -->
+        <form id="personalDetailsForm" onsubmit="findMatch()"> <!-- calling the /studentjsonreg endpoiint in server.js on form submission -->
             <h2 class="formh1">Personal Details</h2> <!-- form to collect personal details and preference of user -->
             <label for="rollNumber">IITB Roll Number:</label>
             <input type="text" id="rollNumber" name="IITB Roll Number" required><br><br> <!-- changed the name for appropriate json data creation by the endpoint -->
