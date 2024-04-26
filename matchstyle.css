@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body.gaymatch {
+    background-image: url('backgroundimages/brokebackmountain.jpg'); /* Add background image */
+}
+body.straightmatch {
+    background-image: url('backgroundimages/pastlives.jpg'); /* Add background image */
+}
+body.lesbianmatch {
+    background-image: url('backgroundimages/portraitofaladyonfire.jpg'); /* Add background image */
+}
+#match.gaymatch { /* Add frozen frame effect */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); 
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+    color: #000;
+}
+.gaymatch h3 {
+    color: #333333;
+}
+.gaymatch p{
+    color: #333333;
+}
+.gaymatch img{
+    border-radius: 10px;
+}
+.gaymatch button{
+    background-color: #000;
+    color: #333333;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#match.lesbianmatch { /* Add frozen frame effect */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); 
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+    color: #000;
+}
+.lesbianmatch h3 {
+    color: #333333;
+}
+.lesbianmatch p{
+    color: #333333;
+}
+.lesbianmatch img{
+    border-radius: 10px;
+}
+.lesbianmatch button{
+    background-color: #000;
+    color: #333333;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#match.straightmatch { /* Add frozen frame effect */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); 
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+    color: #000;
+    position: relative;
+    top: -150px; 
+    margin-bottom: 20px; 
+}
+.straightmatch {
+    font-size: 16px; 
+    line-height: 1.5;
+    text-shadow: -0.5px -0.5px 0 #ADD8E6, 
+                 0.5px -0.5px 0 #ADD8E6, 
+                -0.5px  0.5px 0 #ADD8E6, 
+                 0.5px  0.5px 0 #ADD8E6;
+    text-align: left;
+}
+.straightmatch h3 {
+    color: #333333;
+    font-size: 24px;
+}
+.straightmatch p{
+    color: #333333;
+}
+.straightmatch img{
+    width: 800px;
+    height: 800px;
+    border-radius: 20%; 
+    position: absolute;
+    top: 10px;
+    right: 10px; 
+}
+.straightmatch button{
+    background-color: #ADD8E6;
+    color: #333333;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}

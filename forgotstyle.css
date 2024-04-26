@@ -1,0 +1,74 @@
+body { 
+    font-family: Arial, sans-serif;
+    background-color: #170063;
+    margin: 0;
+    padding: 0;
+    background-image: url("backgroundimages/lalaland.jpg"); /* setting background image */
+    background-repeat: no-repeat; /* prevent image from repeating */
+    background-size: cover;     /* cover the entire background */
+    background-attachment: fixed; /* prevent background from scrolling */
+    overflow: hidden; /* Hide scrollbars */
+}
+
+.container { /* frozen glass effect */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); 
+    padding: 40px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+    color: #f2d244; 
+    position: absolute; /* position the form  */
+    top: 20px; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #f2d244;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input-field { /* style the input fields */
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #f2d244;
+    border-radius: 5px;
+    color: #170063;
+    background-color: #f2d244;
+}
+
+.submit-button { /* style the submit button */
+    width: 100%;
+    padding: 10px;
+    background-color: #f2d244;
+    color: #f2d244;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color:#170063;
+    font-size: 16px;
+}
+
+.submit-button:hover { /* change color on hover */
+    background-color: #f2d244;
+}
+
+.back-link { /* style the back to login link */
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #f2d244;
+    text-decoration: none;
+}
+
+.back-link:hover { /* underline on hover */
+    text-decoration: underline;
+}

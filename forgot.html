@@ -2,184 +2,71 @@
 <html>
 <head>
     <title>Forgot Password</title>
+    <link rel="stylesheet" href="forgotstyle.css">  <!-- link to stylesheet -->
+</head>
+<body>
+    <div class="container"> <!-- enclosing everything in a container for styling-->
+        <h2>Forgot Password</h2>
+        <div id="secret_question"> <!-- div to display the secret question -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" class="input-field" >
+        <button onclick="checkLogin()" class="submit-button">Submit</button> <!-- submit button to validate the form -->
+        </div>
+        <div id="password"></div> <!-- div to display the password -->
+        <div id="debugging"></div> 
+        <a href="login.html" class="back-link">Back to Login</a> <!-- link to login page -->
+    </div>
     <script>
         function checkLogin() {
-            // Get the username entered by the user
             var username = document.getElementById("username").value;
             var i = 0;
-            // Load the login data from login.json
-            fetch("login.json")
+            fetch("login.json") //fetching the json file
                 .then(response => response.json())
                 .then(data => {
-                    // Check if the username exists
-                    var isValidUser = false; 
-                    
-                 for (; i < data.length; i++) {
-                //document.getElementById("debugging").innerHTML= data[i].username + data[i].password;
+                var isValidUser = false; 
+                for (; i < data.length; i++) { //checking if the username is valid
                     if (data[i].username == username) {
                     isValidUser = true;
                     break;
                 }
                 }
                 if (isValidUser) {
-                    // Display the secret question
-                    document.getElementById("secret_question").innerHTML = data[i].secret_question ;
-                    // Display the secret answer
-
-                        var form = document.createElement('form');
-                        // Add input field for the user's answer
+                    document.getElementById("secret_question").innerHTML = data[i].secret_question ; // Display the secret question
+                        var form = document.createElement('form'); // create a dynamic form to recieve user's answer
                         var inputField = document.createElement('input');
                         inputField.setAttribute('type', 'text');
                         inputField.setAttribute('id', 'secretAnswerInput');
                         inputField.setAttribute('placeholder', 'Enter your secret answer');
-                        inputField.classList.add('input-field'); 
-                        // Append input field to the form
-                        form.appendChild(inputField);
-                        var submitButton = document.createElement('input');
+                        inputField.classList.add('input-field');  // for styling the input field
+                        form.appendChild(inputField); // Append input field to the form
+                        var submitButton = document.createElement('input'); // create a submit button
                         submitButton.setAttribute('type', 'submit');
                         submitButton.setAttribute('value', 'Submit');
-                        submitButton.classList.add('submit-button');
-                        // Append submit button to the form
-                        form.appendChild(submitButton);
-                        // Add event listener to capture the user's input
-                        form.addEventListener('submit', function(event) {
-                            event.preventDefault();
-                            var secretAnswer = document.getElementById('secretAnswerInput').value;
-                            if(secretAnswer == data[i].secret_answer){
+                        submitButton.classList.add('submit-button'); // for styling the submit button
+                        form.appendChild(submitButton); // Append submit button to the form
+                        form.addEventListener('submit', function(event) { // Add event listener to capture the user's input
+                            event.preventDefault(); 
+                            var secretAnswer = document.getElementById('secretAnswerInput').value; 
+                            if(secretAnswer == data[i].secret_answer){ // Check if the secret answer is correct
                                 document.getElementById("password").innerHTML = "Your password is: " + data[i].password;
+                                // Display the password
                             } else {
                                 document.getElementById("password").innerHTML = "Invalid secret answer";
+                                // Display an error message
                             }
-                            // Store the secret answer in a variable
-                            console.log('Secret Answer:', secretAnswer);
                         });
-                        // Append the form to the secret question div
-                        document.getElementById("secret_question").appendChild(form);
+               document.getElementById("secret_question").appendChild(form); // Append the form to the secret question div
                     
                 } else {
-                    // Display an error message
-                    var invalidUsernameDiv = document.createElement('div');
-                        invalidUsernameDiv.textContent = 'Invalid username';
-                        document.getElementById("secret_question").appendChild(invalidUsernameDiv);
-                    
+                    var invalidUsernameDiv = document.createElement('div'); // create a div to display invalid username message
+                    invalidUsernameDiv.textContent = 'Invalid username'; // Display the message
+                    document.getElementById("secret_question").appendChild(invalidUsernameDiv); // Append the div to the secret question div                    
                 }
                 })
                 .catch(error => {
-                    console.error("Error loading login data:", error);
+                    console.error("Error loading login data:", error); //error message if the json file is not found
                 });
         }
     </script>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    background-color: #170063;
-    margin: 0;
-    padding: 0;
-    background-image: url("backgroundimages/lalaland.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    overflow: hidden;
-}
-
-.container {
-    background-color: rgba(255, 255, 255, 0.1); /* Adjust opacity as needed */
-    backdrop-filter: blur(10px); /* Adjust blur strength as needed */
-    padding: 40px;
-    border-radius: 10px;
-    width: 300px; /* Adjust width as needed */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Add drop shadow */
-    color: #f2d244;
-    position: absolute;
-    top: 20px; /* Adjust the distance from the top */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%);
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #f2d244;
-}
-
-label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.input-field {
-    width: 95%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #f2d244;
-    border-radius: 5px;
-    color: #170063;
-    background-color: #f2d244;
-}
-
-.submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #f2d244;
-    color: #f2d244;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color:#170063;
-    font-size: 16px;
-}
-
-.submit-button:hover {
-    background-color: #f2d244;
-}
-
-.back-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #f2d244;
-    text-decoration: none;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-    </style>
-</head>
-<body>
-    <audio id="audio" style="display: none;" loop>
-        <source src="music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var audio = document.getElementById("audio");
-            
-            // Check if playback time is stored in sessionStorage
-            var storedTime = sessionStorage.getItem("audioPlaybackTime");
-            if (storedTime) {
-                audio.currentTime = parseFloat(storedTime);
-            }
-            
-            // Start or resume audio playback
-            audio.play();
-            
-            // Store current playback time in sessionStorage when navigating away from the page
-            window.addEventListener("beforeunload", function() {
-                sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
-            });
-        });
-    </script>
-    <div class="container">
-        <h2>Forgot Password</h2>
-        <div id="secret_question">
-            <label for="username">Username:</label>
-        <input type="text" id="username" class="input-field" >
-        <button onclick="checkLogin()" class="submit-button">Submit</button>
-        </div>
-        <div id="password"></div>
-        <div id="debugging"></div>
-        <a href="login.html" class="back-link">Back to Login</a>
-    </div>
 </body>
 </html>

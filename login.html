@@ -1,188 +1,65 @@
-<!--
-    Login Page:- To access the input interface, there can be a login screen before that, which will require you to enter username and password of some sort.
-    If you are “registered” and you fill correct entries, then you login. 
-    If you aren’t “registered”, you can click on a button like “Sign Up”/“Register a New Account” to fill up a new username and a new password, which gets saved in another .json file (call it login.json). 
-    So, any existing/registered user must have their username and password in login.json. Hence any registered user can access this website (on the same machine) at a much later time in future.
-    You can write the code for the login page in a .html file named login.html.
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="loginstyle.css">   <!-- link to stylesheet -->
 </head>
 <body>
-    <audio id="audio" loop>
-        <source src="music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var audio = document.getElementById("audio");
-            
-            // Check if playback time is stored in sessionStorage
-            var storedTime = sessionStorage.getItem("audioPlaybackTime");
-            if (storedTime) {
-                audio.currentTime = parseFloat(storedTime);
-            }
-            
-            // Start or resume audio playback
-            audio.play();
-            
-            // Store current playback time in sessionStorage when navigating away from the page
-            window.addEventListener("beforeunload", function() {
-                sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
-            });
-        });
-    </script>
     <h1 class="heading">Swipe, Match, Love !</h1>
-    <div class="login-container">
-    
-    <form id="loginForm" class="login-form">
+    <div class="login-container">  <!-- enclosing everything in a container for styling-->
+    <form id="loginForm" class="login-form">  <!-- collecting the required details -->
         <h2>Login</h2>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
-        <input type="submit" value="Login" onclick="validateForm()"> <br><br>
-        <div class="forgot-password">
+        <input type="submit" value="Login" onclick="validateForm()"> <br><br>  <!-- submit button to validate the form -->
+        <div class="forgot-password"> <!-- links to forgot password and register page -->
         <a href="forgot.html">Forgot Password</a>  <br><br>
         <a href="register.html">Register a New Account</a>
         </div>
     </form>
     </div>
-    
-    <script >
+    <!-- javascript to validate the form -->
+    <script >  
     function validateForm() {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
-    //document.getElementById("debugging").innerHTML= username + password;
-    fetch('login.json')
+    fetch('login.json') //fetching the json file
         .then(response => response.json())
         .then(data => {
-            var isValidUser = false; 
-            for (var i = 0; i < data.length; i++) {
-                //document.getElementById("debugging").innerHTML= data[i].username + data[i].password;
+            var isValidUser = false;  
+            for (var i = 0; i < data.length; i++) { //checking if the username and password are valid
                 if (data[i].username == username && data[i].password == password) {
                     isValidUser = true;
                     break;
                 }
             }
-            if (isValidUser) {
-                //document.getElementById("debugging").innerHTML= data[i].match;
-                if(data[i].match == "none")
-                {window.location.href = `dating.html?user=${i}`;
-                console.log("Valid username");}
+            var custumization = false; 
+            // customized version require a different kind of json file with a match property 
+            if (data[i].hasOwnProperty('match')) {
+                custumization = true;
+                }
+            if (isValidUser && custumization) {
+                if(data[i].match == "none") 
+                {window.location.href = `dating.html?user=${i}`; //redirect to dating page with urlparameter for user id
+                }
                 else {
+                    //if a match already exist (previous user) then redirect to match page with user's and match's id in student.json
                     var index = Number(data[i].match);
                     window.location.href = `match.html?index=${index}&user=${data[i].studentjsonid}`;
-                    //window.location.replace(`match.html?index=${index}`);
                 } 
-            } else {
-                    console.log("Invalid username or password");
+            } else if(isValidUser) {
+                window.location.href = `dating.html`; // redirect to dating.html for normal json file 
+            }
+            else{
+                window.alert("Invalid Username or Password"); //alert if the username or password is invalid
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Error:', error); //error message if the json file is not found
         });
     }
     </script>
-    <style>
-        body {
-    margin: 0;
-    padding: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    
-    background-image: url("backgroundimages/lalaland.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    overflow: hidden;
-}
-.login-container {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;
-    height: 100vh;
-    position: absolute;
-    top: 50%;
-    right: 20%;
-    transform: translate(0, -50%);
-}
-.heading {
-color: #f2d244; /* Adjust color */
-font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 50px; /* Adjust font size as needed */
-  position: absolute;
-  top: 20%;
-  left: 40px; /* Adjust left position */
-  transform: translateY(-50%);
-  opacity: 0;
-  animation: fadeIn 1.5s forwards; 
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.login-form {
-    background-color: rgba(255, 255, 255, 0.1); /* Adjust opacity as needed */
-    backdrop-filter: blur(10px); /* Adjust blur strength as needed */
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px; /* Adjust width as needed */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Add drop shadow */
-    color: #f2d244;
-}
-
-.login-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #f2d244;
-}
-
-.login-form input[type="text"],
-.login-form input[type="password"] {
-    width: 90%; /* Adjust width as needed */
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #3a1c9c;
-    background-color: #f2d244;
-    border-radius: 5px;
-}
-
-.login-form input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #f2d244;
-    border: none;
-    border-radius: 5px;
-    color: #3a1c9c;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.login-form input[type="submit"]:hover {
-    background-color: #f2d244;
-}
-
-.forgot-password {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.forgot-password a {
-    color: #f2d244;
-    text-decoration: none;
-}
-
-.forgot-password a:hover {
-    text-decoration: underline;
-}
-    </style>
 </body>
 </html>

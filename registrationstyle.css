@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url("backgroundimages/lalaland.jpg"); /* Add background image */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+    background-size: cover; /* Cover the entire background */
+    background-attachment: fixed; /* Prevent background image from scrolling */
+    overflow: hidden; /* Prevent scrollbars */
+    display: flex;  /* Add flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh;
+}
+
+.register-container { /* Add container styling */
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    right: 20%;
+    transform: translate(0, -50%);
+}
+.register-form { /* Add frozen frame effect */
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px); 
+    padding: 10px;
+    border-radius: 10px;
+    width: 300px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+    color: #f2d244;
+}
+.register-form h2 { /* Add header styling */
+    text-align: center;
+    margin-bottom: 20px;
+    color: #f2d244;
+}
+.register-form input[type="text"],
+.register-form input[type="password"] { /* Add input field styling */
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #3a1c9c;
+    background-color: #f2d244;
+    border-radius: 5px;
+}
+
+.register-form input[type="submit"] { /* Add submit button styling */
+    width: 100%;
+    padding: 10px;
+    background-color: #f2d244;
+    border: none;
+    border-radius: 5px;
+    color: #3a1c9c;
+    font-size: 16px;
+    cursor: pointer;
+}

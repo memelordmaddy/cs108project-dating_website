@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;    
+    background-image: url("backgroundimages/lalaland.jpg"); /* setting background image */
+    background-repeat: no-repeat; /* prevent image from repeating */
+    background-size: cover; /* cover the entire background */
+    background-attachment: fixed; /* prevent background from scrolling */
+    overflow: hidden; /* Hide scrollbars */
+}
+.login-container {
+    display: flex; /* make the container a flex container */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh;
+    position: absolute; /* position the form */
+    top: 50%;
+    right: 20%;
+    transform: translate(0, -50%);
+}
+.heading {
+color: #f2d244; 
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 50px; 
+  position: absolute;
+  top: 20%;
+  left: 40px; 
+  transform: translateY(-50%);
+  opacity: 0; 
+  animation: fadeIn 1.5s forwards;  /* Apply animation */
+} 
+@keyframes fadeIn { /* Define animation */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.login-form { /* frozen glass effect */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); 
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+    color: #f2d244;
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #f2d244;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] { /* style the input fields */
+    width: 90%; 
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #3a1c9c;
+    background-color: #f2d244;
+    border-radius: 5px;
+}
+
+.login-form input[type="submit"] { /* style the submit button */
+    width: 100%;
+    padding: 10px;
+    background-color: #f2d244;
+    border: none;
+    border-radius: 5px;
+    color: #3a1c9c;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form input[type="submit"]:hover { /* change color on hover */
+    background-color: #f2d244;
+}
+
+.forgot-password { /* style the forgot password section */
+    text-align: center;
+    margin-top: 10px;
+}
+
+.forgot-password a { /* style the link */
+    color: #f2d244;
+    text-decoration: none;
+}
+
+.forgot-password a:hover { /* underline on hover */
+    text-decoration: underline;
+}

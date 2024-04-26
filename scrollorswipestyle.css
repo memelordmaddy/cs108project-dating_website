@@ -1,0 +1,98 @@
+body { 
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+    background-image: url("backgroundimages/astarisborn.jpg"); /* setting background image */
+    background-repeat: no-repeat; /* prevent image from repeating */
+    background-size: cover; /* cover the entire background */
+    background-attachment: fixed; /* prevent background from scrolling */
+    overflow: hidden; /* Hide scrollbars */
+}
+
+.container {
+            position: absolute; /* Position the form */
+            top: 50%; 
+            left: 80%;
+            transform: translate(-50%, -50%);
+            width: 800px; 
+            max-width: 80%; 
+            padding: 20px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow */
+        }
+
+h1 {
+    color: #007b86;
+    font-size: 36px;
+    margin-top: 0; 
+    text-align: left;
+}
+
+.student { /* frozen glass effect */
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px); 
+    padding: 20px; 
+    width: 800px;  
+    color: #007b86;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.details { /* style the details  container*/
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+.details p {
+            margin: 5px 10px;
+        }
+.student img {
+    width: 25%; /* Adjust image width */
+    height: auto;
+    border-radius: 5px;
+    margin-left: auto; /* Push image to the right */
+    margin-right: 10px; /* Add some spacing */
+    position: absolute;
+    top: 10px; /* Position image 20 pixels down from the top */
+    right: 140px; /* Position image 20 pixels from the right edge */
+}
+
+.buttons {
+            display: flex;
+            justify-content: space-between; /* Distribute buttons evenly */
+            margin-top: 20px;
+        }
+
+button { /* style the buttons */
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+button.accept {
+    background-color: #007b86;
+    color: white;
+    padding: 12px 24px; 
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    bottom: 20px;
+    right: 180px;
+        }
+
+button.reject {
+    background-color: #007b86;
+    color: white;
+    padding: 12px 24px; 
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    bottom: 20px;
+    left: 100px;
+
+        }

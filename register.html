@@ -2,35 +2,14 @@
 <html>
 <head>
     <title>User Registration</title>
+    <link rel="stylesheet" href="registrationstyle.css">  <!-- link to stylesheet -->
 </head>
 <body>
-    <audio id="audio" style="display: none;" loop>
-        <source src="music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var audio = document.getElementById("audio");
-            
-            // Check if playback time is stored in sessionStorage
-            var storedTime = sessionStorage.getItem("audioPlaybackTime");
-            if (storedTime) {
-                audio.currentTime = parseFloat(storedTime);
-            }
-            
-            // Start or resume audio playback
-            audio.play();
-            
-            // Store current playback time in sessionStorage when navigating away from the page
-            window.addEventListener("beforeunload", function() {
-                sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
-            });
-        });
-    </script>
-    <div class="register-conatiner">
-        <div class="register-form">
+    <div class="register-conatiner"> <!-- enclosing everything in a container for styling-->
+    <div class="register-form">
     <h2>User Registration</h2>
-    <form action="/register" method="POST">
+    <form action="/register" method="POST"> <!-- calling /register endpoint from server.js on submission -->
+        <!-- collecting the required details -->
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         
@@ -46,85 +25,29 @@
         <input type="submit" value="Register">
     </form>
     <script>
-        // Function to get query parameters from URL
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+    function getQueryParam(param) {
+    // Create a new URLSearchParams object using the current URL's search parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    // Retrieve the value of the specified parameter from the URL
+    return urlParams.get(param);
+    }
 
-        // Check if there's an error message in the query parameters
-        const errorMessage = getQueryParam('error');
-        if (errorMessage) {
-            // Display the error message to the user
-            const errorElement = document.createElement('p');
-            errorElement.textContent = errorMessage;
-            errorElement.style.color = 'red';
-            document.body.appendChild(errorElement);
-        }
+    // Retrieve the value of the 'error' query parameter from the URL
+    const errorMessage = getQueryParam('error');
+
+    // Check if an error message exists 
+    if (errorMessage) {
+    // Create a new paragraph element to display the error message
+    const errorElement = document.createElement('p');
+    // Set the text content of the <p> element to the error message retrieved from the URL
+    errorElement.textContent = errorMessage;
+    // Apply red color to the text of the <p> element
+    errorElement.style.color = 'red';
+    // Append the <p> element to the <body> of the HTML document
+    document.body.appendChild(errorElement);
+    }
     </script>
     </div>
 </div>
-<style>
-    body {
-            margin: 0;
-            padding: 0;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            background-image: url("backgroundimages/lalaland.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .register-container {
-            display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center;
-            height: 100vh;
-            position: absolute;
-            top: 50%;
-            right: 20%;
-            transform: translate(0, -50%);
-        }
-        .register-form {
-            background-color: rgba(255, 255, 255, 0.1); /* Adjust opacity as needed */
-            backdrop-filter: blur(10px); /* Adjust blur strength as needed */
-            padding: 10px;
-            border-radius: 10px;
-            width: 300px; /* Adjust width as needed */
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Add drop shadow */
-            color: #f2d244;
-        }
-
-        .register-form h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #f2d244;
-        }
-        .register-form input[type="text"],
-        .register-form input[type="password"] {
-            width: 90%; /* Adjust width as needed */
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #3a1c9c;
-            background-color: #f2d244;
-            border-radius: 5px;
-        }
-
-        .register-form input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #f2d244;
-            border: none;
-            border-radius: 5px;
-            color: #3a1c9c;
-            font-size: 16px;
-            cursor: pointer;
-        }
-</style>
 </body>
 </html>

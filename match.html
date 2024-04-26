@@ -1,150 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>Match</title>
+        <link rel="stylesheet" href="matchstyle.css">
     </head>
     <body>
-        <audio id="audio" style="display: none;" loop>
-            <source src="music.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        <div id="match"></div> <!-- Display the match details here -->
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var audio = document.getElementById("audio");
-                
-                // Check if playback time is stored in sessionStorage
-                var storedTime = sessionStorage.getItem("audioPlaybackTime");
-                if (storedTime) {
-                    audio.currentTime = parseFloat(storedTime);
-                }
-                
-                // Start or resume audio playback
-                audio.play();
-                
-                // Store current playback time in sessionStorage when navigating away from the page
-                window.addEventListener("beforeunload", function() {
-                    sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
-                });
-            });
-        </script>
-        <div id="match">
-            <!-- Match details will be dynamically added here -->
-        </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-    // Get the index parameter from the URL
+            document.addEventListener('DOMContentLoaded', function() { // When the page is loaded 
             const urlParams = new URLSearchParams(window.location.search);
-            const index = parseInt(urlParams.get('index'));
-            const user = parseInt(urlParams.get('user'));
-            console.log(user);
-    // Call foundMatch() with the index
-            foundMatch(index, user);
+            const index = parseInt(urlParams.get('index')); // Get the index of match from the URL
+            const user = parseInt(urlParams.get('user')); // Get the index of the user from the URL
+            foundMatch(index, user); // Call the function to display the  match
             });
             function foundMatch(index, user) {
-            //const urlParams = new URLSearchParams(window.location.search);
-            //const index = parseInt(urlParams.get('index'));
-            if(index != -1)
-            {
-                
-            fetch('student.json')
+            if(index != -1) // check if match exists
+            {                
+            fetch('student.json') // Fetch the student data
             .then(response => response.json())
-            .then(data => {
-            
-                if(data[index].Gender == data[user].Gender)
+            .then(data => {            
+                if(data[index].Gender == data[user].Gender) // check the type of match
                 { 
-                    if(data[index].Gender=="Male")
-                    {document.body.classList.add('gaymatch');}
+                    if(data[index].Gender=="Male") // adding appropriate styling based on the type of match
+                    {document.body.classList.add('gaymatch');
+                    document.getElementById('match').classList.add('gaymatch');}
                     else
-                    {document.body.classList.add('lesbianmatch');}
+                    {document.body.classList.add('lesbianmatch');
+                    document.getElementById('match').classList.add('lesbianmatch');}
                 }
                 else
                 {
                     document.body.classList.add('straightmatch');
-                }
-
-            const studentDiv = document.createElement('div');
-            studentDiv.innerHTML = `
+                    document.getElementById('match').classList.add('straightmatch');
+                }            
+            document.getElementById("match").innerHTML = `
                 <h3>${data[index].Name}</h3>
                 <p>Age: ${data[index].Age}</p>
                 <p>Gender: ${data[index].Gender}</p>
                 <p>Interests: ${data[index].Interests.join(', ')}</p>
                 <p>Hobbies: ${data[index].Hobbies.join(', ')}</p>
-                <p>Matched with: ${data[user].Name}</p>
                 <img src="${data[index].Photo}" alt="Student Photo" style="width: 25%; height: auto;"> <br><br>
                 <button onclick="mail()">Mail Your Match</button>
-            `;
-            // Append the created div to appropriate DOM element
-            // <p>Matched with: ${data[user].Name}</p>
-            document.getElementById('match').appendChild(studentDiv);
-        }); }
-        else
+            `; // adding the deatils of match to the page
+            
+            }); 
+            }
+        else // handling the no match case 
         {
-            const studentDiv = document.createElement('div');
-            studentDiv.innerHTML = `
+            document.getElementById("match").innerHTML = `
                 <h3>No Match found</h3>
             `;
             document.getElementById('match').appendChild(studentDiv);
         }
 }
-function mail() {
+function mail() { // fucntion to generate customised mail for each match
     const urlParams = new URLSearchParams(window.location.search);
-    const index = parseInt(urlParams.get('index'));
-    const user = parseInt(urlParams.get('user'));
-
-    fetch('student.json')
+    const index = parseInt(urlParams.get('index')); // studentjson index of match
+    const user = parseInt(urlParams.get('user')); // studentjson index of user
+    fetch('student.json') // Fetch the student data
         .then(response => response.json())
         .then(data => {
-            const userInterests = data[user].Interests;
+            const userInterests = data[user].Interests; // get the interests and hobbies of the user
             const userHobbies = data[user].Hobbies;
-            const receiverInterests = data[index].Interests;
+            const receiverInterests = data[index].Interests; // get the interests and hobbies of the match
             const receiverHobbies = data[index].Hobbies;
-
-            // Find the intersection of interests and hobbies
+            // find the common interests and hobbies
             const sharedInterests = userInterests.filter(interest => receiverInterests.includes(interest));
             const sharedHobbies = userHobbies.filter(hobby => receiverHobbies.includes(hobby));
-
-            // Create custom mail content
+            // create a custom mail based on the user's and the match's interests and hobbies
             const mailContent = `Dear ${data[index].Name},\n\n` +
                 `I noticed that we share some interests like ${sharedInterests.join(', ')} and hobbies such as ${sharedHobbies.join(', ')}, which I find exciting! ` +
                 `It would be great to connect and explore these common interests together.\n\n` +
                 `Looking forward to getting to know you better!\n\n` +
                 `Best regards,\n${data[user].Name}`;
-
             // Create mailto link
             const mailtoLink = `mailto:${data[index].Email}?subject=Dating Proposal&body=${encodeURIComponent(mailContent)}`;
-
             // Open default email client with pre-filled message
             window.location.href = mailtoLink;
         });
 }
-
         </script>
-    <style>
-        body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-/* Background for same gender match */
-body.gaymatch {
-    background-image: url('backgroundimages/brokebackmountain.jpg');
-}
-
-/* Background for different gender match */
-body.straightmatch {
-    background-image: url('backgroundimages/pastlives.jpg');
-}
-body.lesbianmatch {
-    background-image: url('backgroundimages/portraitofaladyonfire.jpg');
-}
-    </style>
     </body>
 </html>
 

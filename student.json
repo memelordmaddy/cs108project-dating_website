@@ -117,40 +117,5 @@
     ],
     "Email": "vivek@example.com",
     "Photo": "photos/vivek_kumar.jpg"
-  },
-  {
-    "IITB Roll Number": "2020069",
-    "Name": "Raju Bhai",
-    "Year of Study": "1st",
-    "Age": 85,
-    "Gender": "Male",
-    "Interests": [
-      "Movies",
-      "Technology"
-    ],
-    "Hobbies": [
-      "Painting",
-      "Watching YouTube/Instagram"
-    ],
-    "Email": "raju@example.com",
-    "Photo": "photos/balaji.jpg"
-  },
-  {
-    "IITB Roll Number": "2038243",
-    "Name": "dhueindf3ws",
-    "Year of Study": "23",
-    "Age": "12",
-    "Gender": "Female",
-    "Interests": [
-      "Sports",
-      "Movies"
-    ],
-    "Hobbies": [
-      "Coding",
-      "Playing musical instruments"
-    ],
-    "photo": "balaji.jpg",
-    "Preferred Gender": "no_preference",
-    "Preferred Age Group": "no_preference"
   }
 ]

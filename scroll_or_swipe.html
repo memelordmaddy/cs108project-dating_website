@@ -2,155 +2,24 @@
 <html>
 <head>
     <title>Student Details</title>
-    <style>
-    body {
-    margin: 0;
-    padding: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    
-    background-image: url("backgroundimages/astarisborn.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    overflow: hidden;
-}
-
-.container {
-            position: absolute;
-            top: 50%;
-            left: 80%;
-            transform: translate(-50%, -50%);
-            width: 800px; /* Set container width */
-            max-width: 80%; /* Limit container width */
-            padding: 20px; /* Add some padding */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow */
-        }
-
-h1 {
-    color: #007b86;
-    font-size: 36px;
-    margin-top: 0; /* Remove default margin */
-    text-align: left;
-}
-
-.student {
-    background-color: rgba(255, 255, 255, 0.1); /* Adjust opacity as needed */
-    backdrop-filter: blur(10px); /* Adjust blur strength as needed */
-    padding: 20px;
- 
-    width: 800px; /* Adjust width as needed */
-  
-    color: #007b86;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-}
-.details {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-.details p {
-            margin: 5px 10px;
-        }
-.student img {
-    width: 25%; /* Adjust image width */
-    height: auto;
-    border-radius: 5px;
-    margin-left: auto; /* Push image to the right */
-    margin-right: 10px; /* Add some spacing */
-    position: absolute;
-    top: 10px; /* Position image 20 pixels down from the top */
-    right: 140px; /* Position image 20 pixels from the right edge */
-}
-
-.buttons {
-            display: flex;
-            justify-content: space-between; /* Distribute buttons evenly */
-            margin-top: 20px;
-        }
-
-button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-button.accept {
-            background-color: #007b86;
-            color: white;
-            padding: 12px 24px; /* Increase padding for larger buttons */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    position: absolute;
-    bottom: 20px;
-    right: 180px;
-        }
-
-button.reject {
-            background-color: #007b86;
-            color: white;
-            padding: 12px 24px; /* Increase padding for larger buttons */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    position: absolute;
-    bottom: 20px;
-    left: 100px;
-
-        }
-
-    </style>
+    <link rel="stylesheet" href="scrollorswipestyle.css"> <!-- link to stylesheet -->
 </head>
-<body>
-    <audio id="audio" style="display: none;" loop>
-        <source src="music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var audio = document.getElementById("audio");
-            
-            // Check if playback time is stored in sessionStorage
-            var storedTime = sessionStorage.getItem("audioPlaybackTime");
-            if (storedTime) {
-                audio.currentTime = parseFloat(storedTime);
-            }
-            
-            // Start or resume audio playback
-            audio.play();
-            
-            // Store current playback time in sessionStorage when navigating away from the page
-            window.addEventListener("beforeunload", function() {
-                sessionStorage.setItem("audioPlaybackTime", audio.currentTime);
-            });
-        });
-    </script>
-    <div class="container">
-        
-        <div id="student-list">
-           
+<body>    
+    <div class="container"> <!-- container for styling purposes -->       
+        <div id="student-list">           
             <!-- Student details will be dynamically added here -->
         </div>
     </div>
-
-
     <script >
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() { // Wait for the DOM content to load before executing the script
     let currentIndex = 0;
-    let studentsData = [];
-
-    const studentList = document.getElementById('student-list');
-
-    function showStudentDetails(index) {
+    let studentsData = []; // Array to store student data
+    const studentList = document.getElementById('student-list'); // Reference to the student list container
+    function showStudentDetails(index) { // Function to display student details 
         const student = studentsData[index];
         if (student) {
-            const studentDiv = document.createElement('div');
-            studentDiv.classList.add('student');
+            const studentDiv = document.createElement('div'); // Create a div element to display student details
+            studentDiv.classList.add('student'); // Add a class to the div element
             studentDiv.innerHTML = `
                
                 <h2 class="details">${student.Name}</h2>
@@ -165,38 +34,36 @@ button.reject {
                 <button class="accept" onclick="acceptStudent(${index})" >Smash</button>
                 <button class="reject" onclick="rejectStudent(${index})" >Pass</button>
                 </div>
-            `;
-            studentList.innerHTML = '';
-            studentList.appendChild(studentDiv);
+            `; // Add student details to the div element as HTML content and added classes for styling purposes
+            studentList.innerHTML = ''; // Clear the student list container
+            studentList.appendChild(studentDiv); // Append the student div to the student list container
         } else {
-            studentList.innerHTML = '<p>No more students to display</p>';
+            studentList.innerHTML = '<p>No more students to display</p>'; // Display a message when there are no more students to display
         }
     }
 
-    function loadStudentsData() {
+    function loadStudentsData() { // Function to load student data from a JSON file
         fetch('student.json')
             .then(response => response.json())
             .then(data => {
                 studentsData = data;
-                showStudentDetails(currentIndex);
+                showStudentDetails(currentIndex); // call the function to display the deatils inside the div
             });
     }
+    loadStudentsData(); // call loadstudentdata function
 
-    loadStudentsData();
-
-    window.acceptStudent = function(index) {
-        // Add your logic here
+    window.acceptStudent = function(index) { // Function to handle the smash button click event
+        // to do 
         currentIndex++;
         showStudentDetails(currentIndex);
     }
 
-    window.rejectStudent = function(index) {
-        // Add your logic here
+    window.rejectStudent = function(index) { // Function to handle the pass button click event
+        // to do
         currentIndex++;
         showStudentDetails(currentIndex);
     }
 });
-
     </script>
 </body>
 </html>
