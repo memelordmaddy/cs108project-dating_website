@@ -20,25 +20,45 @@ body.straightmatch {
 body.lesbianmatch {
     background-image: url('backgroundimages/portraitofaladyonfire.jpg'); /* Add background image */
 }
-#match.gaymatch { /* Add frozen frame effect */
+/* Container styles */
+.gaymatch {
     background-color: rgba(255, 255, 255, 0.1); 
     backdrop-filter: blur(10px); 
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
+    width: 400px; /* Increased width */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
     color: #000;
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space items apart */
+    position: fixed;
+    top: 10%;
+    left:50%;
 }
-.gaymatch h3 {
+
+/* Text content styles */
+.gaymatch-text {
+    width: 50%; /* Take up 50% of container width */
+}
+
+.gaymatch h3,
+.gaymatch p {
     color: #333333;
 }
-.gaymatch p{
-    color: #333333;
+
+/* Image styles */
+.gaymatch-image {
+    width: 50%; /* Take up 50% of container width */
 }
-.gaymatch img{
+
+.gaymatch img {
     border-radius: 10px;
+    width: 100%; /* Make image fill its container */
 }
-.gaymatch button{
+
+/* Button styles */
+.gaymatch button {
     background-color: #000;
     color: #333333;
     border: none;
@@ -47,6 +67,7 @@ body.lesbianmatch {
     border-radius: 5px;
     cursor: pointer;
 }
+
 #match.lesbianmatch { /* Add frozen frame effect */
     background-color: rgba(255, 255, 255, 0.1); 
     backdrop-filter: blur(10px); 

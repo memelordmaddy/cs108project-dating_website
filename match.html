@@ -46,9 +46,10 @@
             }); 
             }
         else // handling the no match case 
-        {
+        {   document.getElementById('match').classList.add('nomatch');
             document.getElementById("match").innerHTML = `
                 <h3>No Match found</h3>
+                <a href="dating.html">Try again</a>
             `;
             document.getElementById('match').appendChild(studentDiv);
         }
