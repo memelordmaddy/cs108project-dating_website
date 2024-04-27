@@ -34,6 +34,7 @@
                     document.getElementById('match').classList.add('straightmatch');
                 }            
             document.getElementById("match").innerHTML = `
+                <div>
                 <h3>${data[index].Name}</h3>
                 <p>Age: ${data[index].Age}</p>
                 <p>Gender: ${data[index].Gender}</p>
@@ -41,6 +42,7 @@
                 <p>Hobbies: ${data[index].Hobbies.join(', ')}</p>
                 <img src="${data[index].Photo}" alt="Student Photo" style="width: 25%; height: auto;"> <br><br>
                 <button onclick="mail()">Mail Your Match</button>
+                </div>
             `; // adding the deatils of match to the page
             
             }); 

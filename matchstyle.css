@@ -21,25 +21,33 @@ body.lesbianmatch {
     background-image: url('backgroundimages/portraitofaladyonfire.jpg'); /* Add background image */
 }
 /* Container styles */
-.gaymatch {
-    background-color: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(10px); 
+#match.gaymatch {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     padding: 20px;
-    border-radius: 10px;
-    width: 400px; /* Increased width */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+    /*border-radius: 10px;*/
+    width: 80%; /* Adjust based on content */
+    max-width: 600px; /* Limit width for larger screens */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     color: #000;
-    display: flex; /* Use flexbox for layout */
-    align-items: center; /* Center items vertically */
-    justify-content: space-between; /* Space items apart */
-    position: fixed;
-    top: 10%;
-    left:50%;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: left;
+    
+    margin: 20px; /* Add spacing between match cards */
 }
 
-/* Text content styles */
+.gaymatch img {
+    border-radius: 10px;
+    width: 100px; /* Make image fill its container */
+    max-width: 300px; /* Limit image width */
+    margin-bottom: 20px; /* Add spacing below the image */
+}
+
 .gaymatch-text {
-    width: 50%; /* Take up 50% of container width */
+    width: 100%; /* Take up full width of the container */
+    text-align: left; /* Align text to the left */
+    margin-bottom: 10px; /* Add spacing below each text element */
 }
 
 .gaymatch h3,
@@ -47,33 +55,25 @@ body.lesbianmatch {
     color: #333333;
 }
 
-/* Image styles */
-.gaymatch-image {
-    width: 50%; /* Take up 50% of container width */
-}
-
-.gaymatch img {
-    border-radius: 10px;
-    width: 100%; /* Make image fill its container */
-}
-
-/* Button styles */
 .gaymatch button {
     background-color: #000;
-    color: #333333;
+    color: #fff;
     border: none;
     padding: 10px 20px;
-    margin-top: 10px;
+    margin-top: 20px; /* Add spacing above the button */
     border-radius: 5px;
     cursor: pointer;
+    align-self: center; /* Center the button horizontally */
+    width: fit-content; /* Set button width based on content */
 }
+
 
 #match.lesbianmatch { /* Add frozen frame effect */
     background-color: rgba(255, 255, 255, 0.1); 
     backdrop-filter: blur(10px); 
     padding: 20px;
     border-radius: 10px;
-    width: 300px; 
+    width: 800px; 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
     color: #000;
 }
@@ -124,12 +124,12 @@ body.lesbianmatch {
     color: #333333;
 }
 .straightmatch img{
-    width: 800px;
+    width: 50%;
     height: 800px;
-    border-radius: 20%; 
+    border-radius: 50%; 
     position: absolute;
-    top: 10px;
-    right: 10px; 
+    top: 40px;
+    right: 40px; 
 }
 .straightmatch button{
     background-color: #ADD8E6;
